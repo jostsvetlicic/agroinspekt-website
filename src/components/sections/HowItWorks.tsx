@@ -57,6 +57,25 @@ export default function HowItWorks({ locale }: { locale: Locale }) {
                 <MeasureRule />
               </Reveal>
             ))}
+
+            {/* Supporting points beneath the steps */}
+            <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+              {t.points.map((p, i) => (
+                <Reveal key={p.label} delay={i}>
+                  <div className="flex gap-3">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-green" />
+                    <div>
+                      <h3 className="font-display text-base font-medium text-ink">
+                        {p.label}
+                      </h3>
+                      <p className="mt-1.5 text-[15px] leading-relaxed text-grey">
+                        {p.text}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </div>

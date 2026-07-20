@@ -30,10 +30,7 @@ export interface Dict {
     title: string;
     lead: string;
     steps: { title: string; text: string }[];
-  };
-  stats: {
-    eyebrow: string;
-    items: { label: string; text: string }[];
+    points: { label: string; text: string }[];
   };
   whatWeDo: {
     eyebrow: string;
@@ -196,10 +193,7 @@ const en: Dict = {
         text: "You receive a clear, defensible report and certificate you can act on.",
       },
     ],
-  },
-  stats: {
-    eyebrow: "Why Agroinspekt",
-    items: [
+    points: [
       {
         label: "Independent",
         text: "No stake in the cargo, only the facts and the standard we work to.",
@@ -463,10 +457,7 @@ const si: Dict = {
         text: "Prejmete jasno, zagovorljivo poročilo in certifikat, na katerega se lahko zanesete.",
       },
     ],
-  },
-  stats: {
-    eyebrow: "Zakaj Agroinspekt",
-    items: [
+    points: [
       {
         label: "Neodvisni",
         text: "Brez deleža v tovoru, le dejstva in standard, po katerem delamo.",

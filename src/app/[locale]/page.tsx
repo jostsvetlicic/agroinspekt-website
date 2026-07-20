@@ -7,7 +7,7 @@ import Hero from "@/components/sections/Hero";
 import StatementBand from "@/components/sections/StatementBand";
 import PinnedServices from "@/components/sections/PinnedServices";
 import HowItWorks from "@/components/sections/HowItWorks";
-import Stats from "@/components/sections/Stats";
+import Counters from "@/components/sections/Counters";
 import Accreditations from "@/components/sections/Accreditations";
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
 import Coverage from "@/components/sections/Coverage";
@@ -18,11 +18,11 @@ import FinalCta from "@/components/sections/FinalCta";
  * "what you can buy" within the first two screens, then builds credibility:
  *   Hero (dark) → What we inspect: intro line + pinned services (off-white)
  *   → statement band (dark photo) → Accreditations (off-white)
- *   → Stats (flat navy) → How it works (white)
+ *   → Metrics (flat navy, counting) → How it works (white)
  *   → Projects (white) → statement band (dark photo)
  *   → Coverage (off-white) → CTA (flat navy).
  * Light and dark deliberately alternate; the two photographic bands and the
- * flat navy stats/CTA are the loud moments between calmer passages.
+ * flat navy metrics/CTA are the loud moments between calmer passages.
  */
 export default async function Home({
   params,
@@ -49,7 +49,7 @@ export default async function Home({
 
       <Accreditations locale={l} />
 
-      <Stats locale={l} />
+      <Counters locale={l} />
 
       <HowItWorks locale={l} />
 
