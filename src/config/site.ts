@@ -11,12 +11,10 @@
 export const brand = {
   name: "Agroinspekt",
   legalName: "AGROINSPEKT d.o.o.",
-  // TODO[CLIENT]: confirm exact tagline wording / trademarked descriptor.
   descriptorEn:
     "Independent third-party inspection, survey, sampling and testing.",
   descriptorSi:
     "Neodvisni tretji-stranski nadzor, pregledi, vzorčenje in testiranje.",
-  foundedYear: 2004, // TODO[CLIENT]: confirm real founding year.
   domain: "agroinspekt.si",
   email: "operations@agroinspekt.si",
 } as const;

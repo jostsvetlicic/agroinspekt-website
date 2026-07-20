@@ -8,9 +8,9 @@ import { media } from "@/config/media";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
-import PlaceholderNote from "@/components/PlaceholderNote";
 import CtaBand from "@/components/CtaBand";
 import Accreditations from "@/components/sections/Accreditations";
+import { features } from "@/config/features";
 
 export async function generateMetadata({
   params,
@@ -113,31 +113,31 @@ export default async function AboutPage({
         </div>
       </section>
 
-      {/* Team */}
-      <section className="section border-t border-line">
-        <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <Reveal>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
-              <Image
-                src={media.whatWeDo.src}
-                alt={media.whatWeDo.alt}
-                fill
-                sizes="(max-width:1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent" />
-            </div>
-          </Reveal>
-          <div>
-            <SectionHeading eyebrow={t.teamTitle} title={t.teamTitle} />
-            <div className="mt-6">
-              <PlaceholderNote label="For the client">
+      {/* Team - hidden until the client supplies real people (features.showTeam) */}
+      {features.showTeam && (
+        <section className="section border-t border-line">
+          <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <Reveal>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                <Image
+                  src={media.whatWeDo.src}
+                  alt={media.whatWeDo.alt}
+                  fill
+                  sizes="(max-width:1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent" />
+              </div>
+            </Reveal>
+            <div>
+              <SectionHeading eyebrow={t.teamTitle} title={t.teamTitle} />
+              <p className="mt-6 leading-relaxed text-grey">
                 {t.teamPlaceholder}
-              </PlaceholderNote>
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Accreditations (shared) */}
       <Accreditations locale={l} />

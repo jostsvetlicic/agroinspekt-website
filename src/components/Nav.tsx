@@ -79,7 +79,7 @@ export default function Nav({ locale }: { locale: Locale }) {
             type="button"
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-md border border-line text-ink lg:hidden"
+            className="grid h-11 w-11 place-items-center rounded-md border border-line text-ink lg:hidden"
           >
             {open ? <Close /> : <Menu />}
           </button>

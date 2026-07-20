@@ -10,7 +10,6 @@ import { isLocale, localePath } from "@/lib/i18n";
 import { media } from "@/config/media";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import PlaceholderNote from "@/components/PlaceholderNote";
 import ProjectCard from "@/components/ProjectCard";
 import ServiceCard from "@/components/ServiceCard";
 import CtaBand from "@/components/CtaBand";
@@ -54,8 +53,6 @@ export default async function ServiceDetail({
 
   const relatedProjects = projects.filter((p) => p.serviceSlug === slug);
   const otherServices = services.filter((s) => s.slug !== slug).slice(0, 3);
-
-  const standardsHaveTodo = c.standards.some((s) => s.includes("TODO"));
 
   const columns: { title: string; items: string[] }[] = [
     { title: t.covers, items: c.covers },
@@ -118,19 +115,10 @@ export default async function ServiceDetail({
                     key={s}
                     className="rounded-md border border-line bg-white px-4 py-2 text-sm text-ink"
                   >
-                    {s.replace(/\s*\(TODO\[CLIENT\].*$/i, "")}
+                    {s}
                   </li>
                 ))}
               </ul>
-              {standardsHaveTodo && (
-                <div className="mt-6">
-                  <PlaceholderNote label="For the client">
-                    Confirm exact accreditations, memberships and standard
-                    references for this service. Some are shown as
-                    industry-typical placeholders.
-                  </PlaceholderNote>
-                </div>
-              )}
             </div>
           </Reveal>
         </div>

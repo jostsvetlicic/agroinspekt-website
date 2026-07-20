@@ -7,7 +7,6 @@ import { isLocale } from "@/lib/i18n";
 import PageHero from "@/components/PageHero";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
-import PlaceholderNote from "@/components/PlaceholderNote";
 import CtaBand from "@/components/CtaBand";
 
 export async function generateMetadata({
@@ -51,16 +50,6 @@ export default async function ProjectsPage({
               </Reveal>
             ))}
           </div>
-
-          <Reveal>
-            <div className="mx-auto mt-12 max-w-3xl">
-              <PlaceholderNote label="For the client">
-                Project titles are real; summaries, locations, dates and
-                outcomes are plausible placeholders. Supply verified details for
-                each so these become genuine, citable case studies.
-              </PlaceholderNote>
-            </div>
-          </Reveal>
         </div>
       </section>
 

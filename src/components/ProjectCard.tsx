@@ -4,7 +4,7 @@ import type { Locale } from "@/config/site";
 import type { Project } from "@/config/projects";
 import { media } from "@/config/media";
 import { localePath } from "@/lib/i18n";
-import { ArrowUpRight, Pin } from "./Icons";
+import { ArrowUpRight } from "./Icons";
 
 export default function ProjectCard({
   project,
@@ -43,11 +43,8 @@ export default function ProjectCard({
         </p>
 
         <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
-          <span className="flex items-center gap-1.5 text-xs text-grey">
-            <Pin className="h-3.5 w-3.5 text-green" />
-            {project.location[locale]}
-            <span className="text-grey-light">·</span>
-            <span className="tabular">{project.year}</span>
+          <span className="text-xs font-medium uppercase tracking-wide text-grey">
+            {project.commodity[locale]}
           </span>
           <ArrowUpRight className="h-4 w-4 text-grey-light transition-colors duration-200 group-hover:text-green" />
         </div>

@@ -11,10 +11,9 @@ import { isLocale, localePath } from "@/lib/i18n";
 import { media } from "@/config/media";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import PlaceholderNote from "@/components/PlaceholderNote";
 import ProjectCard from "@/components/ProjectCard";
 import CtaBand from "@/components/CtaBand";
-import { ArrowRight, Check, Pin } from "@/components/Icons";
+import { ArrowRight, Check } from "@/components/Icons";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -55,7 +54,6 @@ export default async function ProjectDetail({
 
   const meta = [
     { label: t.commodity, value: project.commodity[l] },
-    { label: t.location, value: project.location[l] },
     { label: t.related, value: service ? service[l].title : "N/A" },
   ];
 
@@ -85,13 +83,6 @@ export default async function ProjectDetail({
 
             <Reveal delay={1}>
               <div className="mt-10">
-                <h2 className="eyebrow">{t.challenge}</h2>
-                <p className="mt-4 leading-relaxed text-grey">{c.challenge}</p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={2}>
-              <div className="mt-10">
                 <h2 className="eyebrow">{t.approach}</h2>
                 <ul className="mt-5 space-y-3">
                   {c.approach.map((a) => (
@@ -101,24 +92,6 @@ export default async function ProjectDetail({
                     </li>
                   ))}
                 </ul>
-              </div>
-            </Reveal>
-
-            <Reveal delay={3}>
-              <div className="mt-10 rounded-xl border border-green/30 bg-green-soft p-8">
-                <h2 className="eyebrow">{t.outcome}</h2>
-                <p className="mt-4 leading-relaxed text-ink">
-                  {c.outcome}
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={4}>
-              <div className="mt-8">
-                <PlaceholderNote label="For the client">
-                  Replace the challenge, approach detail and outcome above with
-                  verified facts for this engagement.
-                </PlaceholderNote>
               </div>
             </Reveal>
           </div>
@@ -138,15 +111,6 @@ export default async function ProjectDetail({
                       </dd>
                     </div>
                   ))}
-                  <div>
-                    <dt className="text-xs uppercase tracking-eyebrow text-grey">
-                      {t.location}
-                    </dt>
-                    <dd className="mt-1.5 flex items-center gap-2 text-sm text-grey">
-                      <Pin className="h-4 w-4 text-green" />
-                      <span className="tabular">{project.year}</span>
-                    </dd>
-                  </div>
                 </dl>
 
                 {service && (

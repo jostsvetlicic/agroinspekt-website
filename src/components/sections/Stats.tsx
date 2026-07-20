@@ -1,11 +1,11 @@
 import type { Locale } from "@/config/site";
 import { getDict } from "@/i18n/dictionaries";
-import Counter from "@/components/Counter";
 import Reveal from "@/components/Reveal";
 
 /**
- * The page's dark "breath out" - a clean, flat navy band. Numbers count up on
- * entry. The navy value matches the final CTA and the footer exactly.
+ * The page's dark "breath out" - a clean, flat navy band stating what sets the
+ * company apart, in plain terms. The navy value matches the final CTA and the
+ * footer exactly.
  */
 export default function Stats({ locale }: { locale: Locale }) {
   const t = getDict(locale).stats;
@@ -13,19 +13,20 @@ export default function Stats({ locale }: { locale: Locale }) {
   return (
     <section className="section-dark">
       <div className="container-x relative py-20 md:py-24">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {t.items.map((item, i) => (
             <Reveal key={item.label} delay={i}>
               <div className="flex flex-col">
-                <span className="font-display text-5xl font-semibold tracking-tight text-white md:text-6xl">
-                  <Counter value={item.value} suffix={item.suffix} />
+                <span className="font-display text-2xl font-medium text-white md:text-[1.75rem]">
+                  {item.label}
                 </span>
-                <span className="mt-4 text-sm text-white/60">{item.label}</span>
+                <span className="mt-3 text-sm leading-relaxed text-white/60">
+                  {item.text}
+                </span>
               </div>
             </Reveal>
           ))}
         </div>
-        <p className="mt-12 text-center text-xs text-white/35">{t.note}</p>
       </div>
     </section>
   );

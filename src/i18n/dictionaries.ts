@@ -3,7 +3,6 @@ import type { Locale } from "@/config/site";
 /**
  * UI + section copy dictionaries. Structural/marketing copy lives here;
  * long-form domain content lives in src/config/*.
- * Placeholders for client-supplied data are marked with «PLACEHOLDER».
  */
 
 export interface Dict {
@@ -34,8 +33,7 @@ export interface Dict {
   };
   stats: {
     eyebrow: string;
-    items: { value: number; suffix: string; label: string }[];
-    note: string;
+    items: { label: string; text: string }[];
   };
   whatWeDo: {
     eyebrow: string;
@@ -55,9 +53,9 @@ export interface Dict {
     eyebrow: string;
     title: string;
     lead: string;
-    placeholderLabel: string;
+    points: { title: string; text: string }[];
+    logoLabel: string;
     items: { name: string; scope: string }[];
-    disclaimer: string;
   };
   capability: {
     eyebrow: string;
@@ -72,9 +70,6 @@ export interface Dict {
     viewAll: string;
     readCase: string;
     commodity: string;
-    location: string;
-    outcome: string;
-    challenge: string;
     approach: string;
     related: string;
   };
@@ -171,7 +166,7 @@ const en: Dict = {
     requestCta: "Request an inspection",
   },
   hero: {
-    eyebrow: "Independent · Accredited · Impartial",
+    eyebrow: "Independent · Impartial · Third-party",
     title: "Independent inspection, survey and testing of traded goods.",
     subtitle:
       "Third-party verification of quantity, quality and condition, trusted by the traders, shippers, importers, exporters and insurers who move commodities through Koper and beyond.",
@@ -203,14 +198,25 @@ const en: Dict = {
     ],
   },
   stats: {
-    eyebrow: "By the numbers",
+    eyebrow: "Why Agroinspekt",
     items: [
-      { value: 20, suffix: "+", label: "Years of operation" },
-      { value: 5000, suffix: "+", label: "Inspections completed" },
-      { value: 30, suffix: "+", label: "Ports & terminals covered" },
-      { value: 8, suffix: "", label: "Commodity categories" },
+      {
+        label: "Independent",
+        text: "No stake in the cargo, only the facts and the standard we work to.",
+      },
+      {
+        label: "At the quay",
+        text: "Inspectors at the Port of Koper when time-critical cargo cannot wait.",
+      },
+      {
+        label: "Full scope",
+        text: "Eight inspection domains, from grain and produce to liquids and dangerous goods.",
+      },
+      {
+        label: "Defensible",
+        text: "Documented method and evidence, built to hold in trade, arbitration and claims.",
+      },
     ],
-    note: "«PLACEHOLDER figures». Replace with the client's verified statistics.",
   },
   whatWeDo: {
     eyebrow: "What we do",
@@ -240,30 +246,25 @@ const en: Dict = {
     learnMore: "Learn more",
   },
   accreditations: {
-    eyebrow: "Accreditations & standards",
-    title: "Credentials that make our reports actionable.",
+    eyebrow: "Standards & method",
+    title: "Standards that make our reports actionable.",
     lead: "Our inspections are carried out to recognised international standards, so certificates hold up in trade, arbitration and claims.",
-    placeholderLabel: "Logo",
-    items: [
+    points: [
       {
-        name: "«ACCREDITATION 1»",
-        scope: "Scope of accreditation, e.g. ISO/IEC 17020 inspection body.",
+        title: "Documented method",
+        text: "Every inspection follows a written protocol, so results are repeatable and traceable.",
       },
       {
-        name: "«MEMBERSHIP 2»",
-        scope: "e.g. GAFTA registered superintendent for grain and feed.",
+        title: "Recognised standards",
+        text: "We work to established international sampling and testing references appropriate to each commodity.",
       },
       {
-        name: "«MEMBERSHIP 3»",
-        scope: "e.g. FOSFA member for oils, seeds and fats.",
-      },
-      {
-        name: "«STANDARD 4»",
-        scope: "e.g. ISO 9001 quality management certification.",
+        title: "Defensible evidence",
+        text: "Representative samples and clear reporting produce certificates that hold up in trade, arbitration and claims.",
       },
     ],
-    disclaimer:
-      "MISSING CONTENT: the current agroinspekt.si site lists no accreditations. Certification logos, accreditation numbers and scopes must be collected from the client.",
+    logoLabel: "Logo",
+    items: [],
   },
   capability: {
     eyebrow: "Capability",
@@ -299,9 +300,6 @@ const en: Dict = {
     viewAll: "View all projects",
     readCase: "Read case study",
     commodity: "Commodity",
-    location: "Location",
-    outcome: "Outcome",
-    challenge: "The challenge",
     approach: "Our approach",
     related: "Related service",
   },
@@ -351,8 +349,8 @@ const en: Dict = {
     lead: "Agroinspekt is a Slovenian independent inspection, survey and testing company serving commodity traders, shipping lines, importers, exporters and insurers.",
     storyTitle: "Our story",
     story: [
-      "«PLACEHOLDER: confirm founding story». Founded in Slovenia and operating from Ljubljana and the Port of Koper, Agroinspekt has spent two decades verifying the quantity, quality and condition of goods moving through the northern Adriatic and beyond.",
-      "From a single grain draft survey to full-scope supervision of liquids, minerals and dangerous goods, our remit has grown with the trades we serve. Our founding principle has not changed: independent facts, documented to a standard that holds.",
+      "Agroinspekt is a Slovenian independent inspection, survey and testing company, operating from Ljubljana and the Port of Koper. We verify the quantity, quality and condition of goods moving through the northern Adriatic and beyond.",
+      "Our remit spans the full scope of commodity inspection: grain and produce, liquids, minerals, marine cargo and dangerous goods. The principle behind every engagement is constant: independent facts, documented to a standard that holds.",
     ],
     independenceTitle: "Independence & impartiality",
     independence:
@@ -362,7 +360,7 @@ const en: Dict = {
       "Our inspectors combine deep commodity knowledge with rigorous method across agricultural, mineral, liquid and hazardous goods: draft survey, mechanical and manual sampling, laboratory analysis and damage assessment.",
     teamTitle: "Team",
     teamPlaceholder:
-      "«PLACEHOLDER: team profiles». Provide names, roles, qualifications and photos of key inspectors and management to build trust on this page.",
+      "Profiles of our key inspectors and management will appear here.",
     valuesTitle: "How we work",
     values: [
       {
@@ -370,7 +368,7 @@ const en: Dict = {
         text: "No stake in the goods. Only the facts and the standard.",
       },
       {
-        title: "Accredited",
+        title: "Standards-led",
         text: "Work carried out to recognised international standards.",
       },
       {
@@ -435,7 +433,7 @@ const si: Dict = {
     requestCta: "Naročite pregled",
   },
   hero: {
-    eyebrow: "Neodvisno · Akreditirano · Nepristransko",
+    eyebrow: "Neodvisno · Nepristransko · Tretja stran",
     title: "Neodvisen nadzor, pregledi in testiranje blaga v trgovini.",
     subtitle:
       "Neodvisno preverjanje količine, kakovosti in stanja za trgovce, ladjarje, uvoznike, izvoznike in zavarovalnice, ki premikajo surovine skozi Koper in širše.",
@@ -467,14 +465,25 @@ const si: Dict = {
     ],
   },
   stats: {
-    eyebrow: "V številkah",
+    eyebrow: "Zakaj Agroinspekt",
     items: [
-      { value: 20, suffix: "+", label: "Let delovanja" },
-      { value: 5000, suffix: "+", label: "Opravljenih pregledov" },
-      { value: 30, suffix: "+", label: "Pristanišč in terminalov" },
-      { value: 8, suffix: "", label: "Kategorij surovin" },
+      {
+        label: "Neodvisni",
+        text: "Brez deleža v tovoru, le dejstva in standard, po katerem delamo.",
+      },
+      {
+        label: "Na privezu",
+        text: "Nadzorniki v Luki Koper, ko časovno kritičen tovor ne more čakati.",
+      },
+      {
+        label: "Celoten obseg",
+        text: "Osem področij nadzora, od žit in pridelkov do tekočin in nevarnega blaga.",
+      },
+      {
+        label: "Zagovorljivi",
+        text: "Dokumentirana metoda in dokazi, zgrajeni, da vzdržijo v trgovini, arbitraži in zahtevkih.",
+      },
     ],
-    note: "«NADOMESTNE številke». Zamenjajte s preverjenimi statistikami naročnika.",
   },
   whatWeDo: {
     eyebrow: "Kaj počnemo",
@@ -504,30 +513,25 @@ const si: Dict = {
     learnMore: "Več",
   },
   accreditations: {
-    eyebrow: "Akreditacije in standardi",
-    title: "Poverilnice, ki naša poročila naredijo uporabna.",
+    eyebrow: "Standardi in metoda",
+    title: "Standardi, ki naša poročila naredijo uporabna.",
     lead: "Naši pregledi so izvedeni po priznanih mednarodnih standardih, tako da certifikati vzdržijo v trgovini, arbitraži in zahtevkih.",
-    placeholderLabel: "Logotip",
-    items: [
+    points: [
       {
-        name: "«AKREDITACIJA 1»",
-        scope: "Obseg akreditacije, npr. ISO/IEC 17020 nadzorni organ.",
+        title: "Dokumentirana metoda",
+        text: "Vsak pregled sledi pisnemu protokolu, tako da so rezultati ponovljivi in sledljivi.",
       },
       {
-        name: "«ČLANSTVO 2»",
-        scope: "npr. GAFTA registriran nadzornik za žita in krmila.",
+        title: "Priznani standardi",
+        text: "Delamo po uveljavljenih mednarodnih referencah za vzorčenje in testiranje, primernih za vsako surovino.",
       },
       {
-        name: "«ČLANSTVO 3»",
-        scope: "npr. član FOSFA za olja, semena in maščobe.",
-      },
-      {
-        name: "«STANDARD 4»",
-        scope: "npr. ISO 9001 certifikat vodenja kakovosti.",
+        title: "Zagovorljivi dokazi",
+        text: "Reprezentativni vzorci in jasno poročanje ustvarijo certifikate, ki vzdržijo v trgovini, arbitraži in zahtevkih.",
       },
     ],
-    disclaimer:
-      "MANJKAJOČA VSEBINA: trenutna stran agroinspekt.si ne navaja akreditacij. Logotipe certifikatov, številke akreditacij in obsege je treba pridobiti od naročnika.",
+    logoLabel: "Logotip",
+    items: [],
   },
   capability: {
     eyebrow: "Zmogljivosti",
@@ -563,9 +567,6 @@ const si: Dict = {
     viewAll: "Vsi projekti",
     readCase: "Preberi študijo primera",
     commodity: "Surovina",
-    location: "Lokacija",
-    outcome: "Izid",
-    challenge: "Izziv",
     approach: "Naš pristop",
     related: "Povezana storitev",
   },
@@ -615,8 +616,8 @@ const si: Dict = {
     lead: "Agroinspekt je slovensko neodvisno podjetje za nadzor, preglede in testiranje, ki streže trgovcem s surovinami, ladjarjem, uvoznikom, izvoznikom in zavarovalnicam.",
     storyTitle: "Naša zgodba",
     story: [
-      "«NADOMESTNO: potrdite zgodbo o ustanovitvi». Ustanovljen v Sloveniji in z delovanjem iz Ljubljane in Luke Koper, Agroinspekt že dve desetletji preverja količino, kakovost in stanje blaga, ki se pretaka skozi severni Jadran in širše.",
-      "Od enega samega ugreznega pregleda žita do celovitega nadzora tekočin, mineralov in nevarnega blaga je naš obseg rasel s trgovino, ki ji strežemo. Naše temeljno načelo ostaja isto: neodvisna dejstva, dokumentirana po standardu, ki vzdrži.",
+      "Agroinspekt je slovensko neodvisno podjetje za nadzor, preglede in testiranje, z delovanjem iz Ljubljane in Luke Koper. Preverjamo količino, kakovost in stanje blaga, ki se pretaka skozi severni Jadran in širše.",
+      "Naš obseg zajema celotno področje nadzora surovin: žita in pridelke, tekočine, minerale, pomorski tovor in nevarno blago. Načelo za vsakim projektom ostaja isto: neodvisna dejstva, dokumentirana po standardu, ki vzdrži.",
     ],
     independenceTitle: "Neodvisnost in nepristranskost",
     independence:
@@ -626,7 +627,7 @@ const si: Dict = {
       "Naši nadzorniki združujejo poglobljeno poznavanje surovin z natančno metodo pri kmetijskem, mineralnem, tekočem in nevarnem blagu: ugrezni pregled, mehansko in ročno vzorčenje, laboratorijska analiza in ocena škode.",
     teamTitle: "Ekipa",
     teamPlaceholder:
-      "«NADOMESTNO: profili ekipe». Posredujte imena, vloge, kvalifikacije in fotografije ključnih nadzornikov in vodstva za gradnjo zaupanja na tej strani.",
+      "Profili naših ključnih nadzornikov in vodstva bodo prikazani tukaj.",
     valuesTitle: "Kako delamo",
     values: [
       {
@@ -634,7 +635,7 @@ const si: Dict = {
         text: "Brez deleža v blagu. Le dejstva in standard.",
       },
       {
-        title: "Akreditirano",
+        title: "Po standardih",
         text: "Delo izvedeno po priznanih mednarodnih standardih.",
       },
       {

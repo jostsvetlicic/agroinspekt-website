@@ -2,8 +2,9 @@
  * Service areas - the eight inspection domains.
  * Each carries bilingual copy for its card + dedicated detail page.
  *
- * NOTE ON STANDARDS: specific standard references (GAFTA, FOSFA, ISO, IMDG…)
- * are industry-typical and marked where they need CLIENT confirmation.
+ * NOTE ON STANDARDS: standard references (ISO, UN/ECE, IMDG, ADR, API…) are
+ * public methodological references. Membership-based bodies (e.g. GAFTA,
+ * FOSFA) are deliberately not claimed until the client confirms membership.
  */
 
 export type IconKey =
@@ -62,9 +63,9 @@ export const services: Service[] = [
         "Seal verification and chain-of-custody control",
       ],
       standards: [
-        "ISO 17020 conformity assessment (TODO[CLIENT]: confirm accreditation)",
         "Contractual terms per Incoterms 2020",
-        "GAFTA / FOSFA where applicable (TODO[CLIENT]: confirm memberships)",
+        "Representative sampling to recognised international methods",
+        "Independent, documented inspection and reporting",
       ],
     },
     si: {
@@ -92,9 +93,9 @@ export const services: Service[] = [
         "Preverjanje plomb in nadzor verige hrambe",
       ],
       standards: [
-        "Skladnost z ISO 17020 (TODO[CLIENT]: potrditev akreditacije)",
         "Pogodbeni pogoji po Incoterms 2020",
-        "GAFTA / FOSFA kjer je relevantno (TODO[CLIENT]: potrditev članstev)",
+        "Reprezentativno vzorčenje po priznanih mednarodnih metodah",
+        "Neodvisen, dokumentiran nadzor in poročanje",
       ],
     },
   },
@@ -190,7 +191,7 @@ export const services: Service[] = [
         "Sample reduction and retained-sample sealing",
       ],
       standards: [
-        "GAFTA sampling & analysis (TODO[CLIENT]: confirm membership)",
+        "Recognised soft-commodity sampling methods",
         "ISO 6673 / ISO 1446 moisture methods",
         "ICO / ICCO grade references",
       ],
@@ -220,7 +221,7 @@ export const services: Service[] = [
         "Redukcija vzorcev in plombiranje hranjenih vzorcev",
       ],
       standards: [
-        "GAFTA vzorčenje in analiza (TODO[CLIENT]: potrditev članstva)",
+        "Priznane metode vzorčenja mehkih surovin",
         "Metode vlage ISO 6673 / ISO 1446",
         "Referenčni razredi ICO / ICCO",
       ],
@@ -254,7 +255,7 @@ export const services: Service[] = [
         "Composite and retained sample preparation",
       ],
       standards: [
-        "GAFTA registered superintendence (TODO[CLIENT]: confirm)",
+        "Bulk grain superintendence to recognised trade practice",
         "ISO 24333 grain sampling",
         "UN/ECE draft survey code",
       ],
@@ -284,7 +285,7 @@ export const services: Service[] = [
         "Priprava sestavljenih in hranjenih vzorcev",
       ],
       standards: [
-        "GAFTA registriran nadzor (TODO[CLIENT]: potrditev)",
+        "Nadzor razsutega žita po priznani trgovinski praksi",
         "ISO 24333 vzorčenje žit",
         "UN/ECE kodeks ugreznega pregleda",
       ],
@@ -384,7 +385,7 @@ export const services: Service[] = [
       standards: [
         "ISO 3170 / 3171 liquid sampling",
         "API MPMS gauging standards",
-        "FOSFA where applicable (TODO[CLIENT]: confirm membership)",
+        "Recognised oils and fats sampling practice",
       ],
     },
     si: {
@@ -414,7 +415,7 @@ export const services: Service[] = [
       standards: [
         "ISO 3170 / 3171 vzorčenje tekočin",
         "API MPMS standardi merjenja",
-        "FOSFA kjer je relevantno (TODO[CLIENT]: potrditev članstva)",
+        "Priznana praksa vzorčenja olj in maščob",
       ],
     },
   },

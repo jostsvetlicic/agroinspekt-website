@@ -54,15 +54,17 @@ export default function Coverage({ locale }: { locale: Locale }) {
                           {o.phone}
                         </a>
                       </p>
-                      <p className="flex items-center gap-2.5">
-                        <Mail className="h-4 w-4 shrink-0 text-green" />
-                        <a
-                          href={`mailto:${o.emails[0]}`}
-                          className="hover:text-ink"
-                        >
-                          {o.emails[0]}
-                        </a>
-                      </p>
+                      {o.emails.map((email) => (
+                        <p key={email} className="flex items-center gap-2.5">
+                          <Mail className="h-4 w-4 shrink-0 text-green" />
+                          <a
+                            href={`mailto:${email}`}
+                            className="hover:text-ink"
+                          >
+                            {email}
+                          </a>
+                        </p>
+                      ))}
                     </div>
                   </div>
                 </Reveal>

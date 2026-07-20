@@ -5,7 +5,6 @@ import { brand, offices } from "@/config/site";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale } from "@/lib/i18n";
 import PageHero from "@/components/PageHero";
-import PlaceholderNote from "@/components/PlaceholderNote";
 
 export const metadata: Metadata = { title: "Privacy Policy" };
 
@@ -80,12 +79,6 @@ export default async function PrivacyPage({
       />
       <section className="section">
         <div className="container-x max-w-3xl">
-          <div className="mb-10">
-            <PlaceholderNote label="For the client">
-              This is a starter privacy notice. Have it reviewed and completed
-              by the client&apos;s legal advisor before publication.
-            </PlaceholderNote>
-          </div>
           <div className="space-y-10">
             {c.sections.map((s) => (
               <div key={s.h}>
