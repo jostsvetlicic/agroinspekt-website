@@ -1,6 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+
+// viewport-fit=cover exposes the iOS safe-area insets (env(safe-area-inset-*))
+// used to keep the floating WhatsApp button clear of the home indicator.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],

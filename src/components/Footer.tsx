@@ -1,11 +1,11 @@
 import Link from "next/link";
 import type { Locale } from "@/config/site";
-import { brand, navLinks, offices } from "@/config/site";
+import { brand, navLinks, offices, whatsappHref } from "@/config/site";
 import { services } from "@/config/services";
 import { getDict } from "@/i18n/dictionaries";
 import { localePath } from "@/lib/i18n";
 import Logo from "./Logo";
-import { Mail, Phone, Pin } from "./Icons";
+import { Mail, Phone, Pin, WhatsApp } from "./Icons";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const d = getDict(locale);
@@ -14,7 +14,7 @@ export default function Footer({ locale }: { locale: Locale }) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-white">
+    <footer id="site-footer" className="bg-ink text-white">
       <div className="container-x py-16 md:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
           {/* Brand */}
@@ -81,6 +81,19 @@ export default function Footer({ locale }: { locale: Locale }) {
                       {o.phone}
                     </a>
                   </p>
+                  {"emphasis" in o && o.emphasis && (
+                    <p className="mt-1 flex items-center gap-2 text-white/60">
+                      <WhatsApp className="h-3.5 w-3.5 shrink-0 text-green" />
+                      <a
+                        href={whatsappHref(locale)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-white"
+                      >
+                        {d.common.whatsapp}
+                      </a>
+                    </p>
+                  )}
                   {o.emails.map((e) => (
                     <p
                       key={e}

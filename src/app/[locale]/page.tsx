@@ -3,7 +3,9 @@ import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 import { getDict } from "@/i18n/dictionaries";
 import { media } from "@/config/media";
+import { features } from "@/config/features";
 import Hero from "@/components/sections/Hero";
+import HeroSequence from "@/components/sections/HeroSequence";
 import StatementBand from "@/components/sections/StatementBand";
 import PinnedServices from "@/components/sections/PinnedServices";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -36,7 +38,11 @@ export default async function Home({
 
   return (
     <>
-      <Hero locale={l} />
+      {features.heroVariant === "sequence" ? (
+        <HeroSequence locale={l} />
+      ) : (
+        <Hero locale={l} />
+      )}
 
       <PinnedServices locale={l} />
 

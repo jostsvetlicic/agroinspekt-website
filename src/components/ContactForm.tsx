@@ -6,20 +6,37 @@ import { services } from "@/config/services";
 import { getDict } from "@/i18n/dictionaries";
 import { Check, ArrowRight } from "./Icons";
 
+const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
+
 export default function ContactForm({ locale }: { locale: Locale }) {
   const t = getDict(locale).contact;
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
+  const sent = status === "sent";
 
   const field =
     "w-full rounded-md border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-grey-light outline-none transition-colors focus:border-green/60 focus:ring-1 focus:ring-green/30";
   const label =
     "mb-2 block text-xs font-medium uppercase tracking-wide text-grey";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // No backend on this marketing site - demonstrate the flow only.
-    // TODO[CLIENT]: wire to email/CRM (e.g. Resend, Formspree, HubSpot).
-    setSent(true);
+    if (!FORMSPREE_ENDPOINT) {
+      setStatus("error");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(e.currentTarget),
+      });
+      setStatus(res.ok ? "sent" : "error");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (sent) {
@@ -140,10 +157,20 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <button type="submit" className="btn-primary mt-6 w-full sm:w-auto">
-        {t.submit}
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="btn-primary mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      >
+        {status === "sending" ? t.sending : t.submit}
         <ArrowRight className="h-4 w-4" />
       </button>
+
+      {status === "error" && (
+        <p className="mt-4 text-sm text-red-600" role="alert">
+          {t.error}
+        </p>
+      )}
     </form>
   );
 }

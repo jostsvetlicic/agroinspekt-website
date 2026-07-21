@@ -24,6 +24,7 @@ export interface Dict {
     primaryCta: string;
     secondaryCta: string;
     scroll: string;
+    slides: { headline: string; support: string }[];
   };
   howItWorks: {
     eyebrow: string;
@@ -137,7 +138,9 @@ export interface Dict {
     dateTo: string;
     message: string;
     submit: string;
+    sending: string;
     success: string;
+    error: string;
     required: string;
     officesTitle: string;
   };
@@ -146,6 +149,7 @@ export interface Dict {
     requestCta: string;
     phone: string;
     email: string;
+    whatsapp: string;
   };
 }
 
@@ -170,6 +174,22 @@ const en: Dict = {
     primaryCta: "Request an inspection",
     secondaryCta: "See our services",
     scroll: "Scroll",
+    slides: [
+      {
+        headline: "We verify what is in the cargo, and what condition it is in.",
+        support:
+          "Independent inspection, survey, sampling and testing of traded goods.",
+      },
+      {
+        headline: "An independent report your counterparty cannot argue with.",
+        support:
+          "Quantity, quality and condition, documented to recognised standards, so it holds in the contract, in arbitration and in a claim.",
+      },
+      {
+        headline: "Our inspectors are already at the Port of Koper.",
+        support: "On the quay fast, when the cargo will not wait.",
+      },
+    ],
   },
   howItWorks: {
     eyebrow: "How it works",
@@ -401,7 +421,9 @@ const en: Dict = {
     dateTo: "Date to",
     message: "Details",
     submit: "Send enquiry",
+    sending: "Sending…",
     success: "Thank you. Your enquiry has been noted, and we will be in touch.",
+    error: "Something went wrong. Please try again, or email us directly.",
     required: "Required",
     officesTitle: "Our offices",
   },
@@ -410,6 +432,7 @@ const en: Dict = {
     requestCta: "Request an inspection",
     phone: "Phone",
     email: "Email",
+    whatsapp: "Chat on WhatsApp",
   },
 };
 
@@ -434,6 +457,23 @@ const si: Dict = {
     primaryCta: "Naročite pregled",
     secondaryCta: "Oglejte si storitve",
     scroll: "Drsaj",
+    slides: [
+      {
+        headline: "Preverimo, kaj je v tovoru in v kakšnem stanju je.",
+        support:
+          "Neodvisen nadzor, pregledi, vzorčenje in testiranje blaga v trgovini.",
+      },
+      {
+        headline:
+          "Neodvisno poročilo, ki mu nasprotna stranka ne more oporekati.",
+        support:
+          "Količina, kakovost in stanje, dokumentirano po priznanih standardih, da vzdrži v pogodbi, arbitraži in odškodninskem zahtevku.",
+      },
+      {
+        headline: "Naši nadzorniki so že v Luki Koper.",
+        support: "Hitro na privezu, ko tovor ne more čakati.",
+      },
+    ],
   },
   howItWorks: {
     eyebrow: "Kako poteka",
@@ -665,7 +705,9 @@ const si: Dict = {
     dateTo: "Datum do",
     message: "Podrobnosti",
     submit: "Pošlji povpraševanje",
+    sending: "Pošiljanje…",
     success: "Hvala. Vaše povpraševanje je zabeleženo in oglasili se vam bomo.",
+    error: "Prišlo je do napake. Poskusite znova ali nam pišite neposredno.",
     required: "Obvezno",
     officesTitle: "Naši pisarni",
   },
@@ -674,6 +716,7 @@ const si: Dict = {
     requestCta: "Naročite pregled",
     phone: "Telefon",
     email: "E-pošta",
+    whatsapp: "Klepet na WhatsAppu",
   },
 };
 

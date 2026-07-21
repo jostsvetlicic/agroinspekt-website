@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/config/site";
-import { offices } from "@/config/site";
+import { offices, whatsappHref } from "@/config/site";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale } from "@/lib/i18n";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
-import { Mail, Phone, Pin } from "@/components/Icons";
+import { Mail, Phone, Pin, WhatsApp } from "@/components/Icons";
 
 export async function generateMetadata({
   params,
@@ -30,6 +30,7 @@ export default async function ContactPage({
   const l = locale as Locale;
   const t = getDict(l).contact;
   const nav = getDict(l).nav;
+  const common = getDict(l).common;
 
   return (
     <>
@@ -93,6 +94,19 @@ export default async function ContactPage({
                               {o.phone}
                             </a>
                           </p>
+                          {emphasised && (
+                            <p className="flex items-center gap-2.5">
+                              <WhatsApp className="h-4 w-4 shrink-0 text-green" />
+                              <a
+                                href={whatsappHref(l)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-ink"
+                              >
+                                {common.whatsapp}
+                              </a>
+                            </p>
+                          )}
                           {o.emails.map((e) => (
                             <p
                               key={e}

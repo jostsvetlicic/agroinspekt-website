@@ -18,4 +18,11 @@ export const features = {
    * supplies names, roles, qualifications and photos of key people.
    */
   showTeam: false,
+
+  /**
+   * Homepage hero style. "sequence" = the pinned horizontal three-slide
+   * sequence (HeroSequence); "classic" = the original single full-bleed hero
+   * (Hero). Both components remain in the codebase — flip this to switch back.
+   */
+  heroVariant: "sequence" as "sequence" | "classic",
 } as const;

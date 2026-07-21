@@ -6,6 +6,7 @@ import { isLocale } from "@/lib/i18n";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -52,6 +53,7 @@ export default async function LocaleLayout({
       <Nav locale={typed} />
       <main className="min-h-screen">{children}</main>
       <Footer locale={typed} />
+      <FloatingWhatsApp locale={typed} />
     </SmoothScroll>
   );
 }

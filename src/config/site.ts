@@ -20,6 +20,21 @@ export const brand = {
 } as const;
 
 /**
+ * WhatsApp contact - the Koper port-operations line, WhatsApp-enabled.
+ * Single source of truth: change the number/messages here only. Components
+ * build the deep link via `whatsappHref(locale)` (see below) so the prefilled
+ * opening message follows the visitor's language and is correctly URL-encoded.
+ */
+export const whatsapp = {
+  number: "38631686212", // international format, no "+" (wa.me requirement)
+  link: "https://wa.me/38631686212",
+  prefill: {
+    en: "Hello, I would like to request an inspection.",
+    si: "Pozdravljeni, rad bi povprašal za nadzor.",
+  },
+} as const;
+
+/**
  * Palette tokens - mirrored in tailwind.config.ts for utility classes.
  * Light theme. Primary green (#139E3E) sampled directly from the client logo.
  */
@@ -76,6 +91,10 @@ export const offices = [
 export type Locale = "en" | "si";
 export const locales: Locale[] = ["en", "si"];
 export const defaultLocale: Locale = "en";
+
+/** WhatsApp deep link with a language-appropriate, URL-encoded opening message. */
+export const whatsappHref = (locale: Locale): string =>
+  `${whatsapp.link}?text=${encodeURIComponent(whatsapp.prefill[locale])}`;
 
 export const navLinks = [
   { key: "about", href: "/about" },

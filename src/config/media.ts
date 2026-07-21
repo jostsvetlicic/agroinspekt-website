@@ -22,6 +22,27 @@ export const media = {
     swap: "Supply a high-resolution (≥2400px) version of this vessel/port shot for a crisper full-bleed hero.",
   } as MediaItem,
 
+  // The three full-bleed slides of the pinned horizontal hero sequence, in order.
+  // Slide 3 currently reuses the on-site inspection shot as a stand-in for Koper;
+  // swap its `src` for a genuine Port of Koper quay photograph when supplied.
+  heroSequence: [
+    {
+      src: "/img/marine.jpg",
+      alt: "Bulk vessel under inspection at the Port of Koper",
+      swap: "High-resolution (≥2400px) vessel/marine survey shot.",
+    },
+    {
+      src: "/img/hero.jpg",
+      alt: "Cargo operations at the Port of Koper",
+      swap: "High-resolution cargo/port operations shot.",
+    },
+    {
+      src: "/img/general.jpg",
+      alt: "Agroinspekt inspector on the quay at the Port of Koper",
+      swap: "A genuine Port of Koper quayside photo of inspectors at work (≥2400px).",
+    },
+  ] as MediaItem[],
+
   whatWeDo: {
     src: "/img/general.jpg",
     alt: "Agroinspekt inspector on site verifying a consignment",
