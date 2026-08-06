@@ -1,20 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
-
-const variants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-      delay: i * 0.08,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  }),
-};
 
 type Tag = "div" | "section" | "li" | "article" | "span";
 
@@ -33,7 +20,10 @@ interface RevealProps {
   as?: Tag;
 }
 
-/** Fade-and-slide reveal on scroll into view. */
+/**
+ * Fade-and-rise reveal on scroll into view. Reveals once (calm, not noisy),
+ * ease-out, and collapses to a plain fade when reduced-motion is requested.
+ */
 export default function Reveal({
   children,
   className,
@@ -41,6 +31,21 @@ export default function Reveal({
   as = "div",
 }: RevealProps) {
   const MotionTag = tags[as];
+  const reduce = useReducedMotion();
+
+  const variants: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 16 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: reduce ? 0.2 : 0.5,
+        delay: reduce ? 0 : i * 0.07,
+        ease: [0.23, 1, 0.32, 1],
+      },
+    }),
+  };
+
   return (
     <MotionTag
       className={className}
@@ -48,7 +53,7 @@ export default function Reveal({
       custom={delay}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, margin: "-80px" }}
+      viewport={{ once: true, margin: "-80px" }}
     >
       {children}
     </MotionTag>

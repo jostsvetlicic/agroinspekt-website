@@ -33,7 +33,8 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Run on everything except Next internals, the API, and files with an
-  // extension (favicon.svg, /img/*, /logo/*, etc.).
-  matcher: ["/((?!_next|api|.*\\..*).*)"],
+  // Run on everything except Next internals, the API, the /admin panel
+  // (its own top-level, non-localized area), and files with an extension
+  // (favicon.svg, /img/*, /logo/*, etc.).
+  matcher: ["/((?!_next|api|admin|.*\\..*).*)"],
 };

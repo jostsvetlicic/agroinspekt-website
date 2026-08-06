@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getDict } from "@/i18n/dictionaries";
 import { media } from "@/config/media";
 import { features } from "@/config/features";
+import { getMetrics, getSettingsMap } from "@/lib/content";
 import Hero from "@/components/sections/Hero";
 import HeroSequence from "@/components/sections/HeroSequence";
 import StatementBand from "@/components/sections/StatementBand";
@@ -36,6 +37,14 @@ export default async function Home({
   const l = locale as Locale;
   const s = getDict(l).statements;
 
+  // DB-backed content (editable in the admin), with static fallback.
+  const [metrics, settings] = await Promise.all([
+    getMetrics(),
+    getSettingsMap(["finalCta.title", "finalCta.text"]),
+  ]);
+  const finalCtaTitle = settings["finalCta.title"]?.[l] ?? undefined;
+  const finalCtaText = settings["finalCta.text"]?.[l] ?? undefined;
+
   return (
     <>
       {features.heroVariant === "sequence" ? (
@@ -55,7 +64,7 @@ export default async function Home({
 
       <Accreditations locale={l} />
 
-      <Counters locale={l} />
+      <Counters locale={l} metrics={metrics} />
 
       <HowItWorks locale={l} />
 
@@ -70,7 +79,7 @@ export default async function Home({
 
       <Coverage locale={l} />
 
-      <FinalCta locale={l} />
+      <FinalCta locale={l} title={finalCtaTitle} text={finalCtaText} />
     </>
   );
 }

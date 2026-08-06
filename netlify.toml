@@ -5,12 +5,16 @@
 # The plugin builds the app and wires up middleware + server routes.
 
 [build]
-  command = "next build"
+  # `npm run build` runs `prisma generate` (so the Prisma Client + Linux query
+  # engine are present) and then `next build`.
+  command = "npm run build"
   publish = ".next"
 
 [build.environment]
   # Next.js 15 requires a modern Node runtime.
   NODE_VERSION = "20"
+  # Skip Prisma's ad hoc install prompt during CI builds.
+  PRISMA_HIDE_UPDATE_MESSAGE = "true"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import StructuredData from "@/components/StructuredData";
 
 // viewport-fit=cover exposes the iOS safe-area insets (env(safe-area-inset-*))
 // used to keep the floating WhatsApp button clear of the home indicator.
@@ -53,7 +54,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <StructuredData />
+      </body>
     </html>
   );
 }

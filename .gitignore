@@ -10,6 +10,12 @@ next-env.d.ts
 .vercel
 *.tsbuildinfo
 
+# Prisma local SQLite database
+/prisma/dev.db
+/prisma/dev.db-journal
+/prisma/*.db
+/prisma/*.db-journal
+
 # Local tooling / editor
 /.claude
 *.log

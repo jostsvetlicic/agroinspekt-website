@@ -7,8 +7,18 @@ import Logo from "@/components/Logo";
 import Reveal from "@/components/Reveal";
 import { ArrowRight, Phone } from "@/components/Icons";
 
-export default function FinalCta({ locale }: { locale: Locale }) {
+export default function FinalCta({
+  locale,
+  title,
+  text,
+}: {
+  locale: Locale;
+  title?: string;
+  text?: string;
+}) {
   const t = getDict(locale).finalCta;
+  const heading = title ?? t.title;
+  const body = text ?? t.text;
 
   return (
     <section className="bg-ink text-white">
@@ -19,12 +29,12 @@ export default function FinalCta({ locale }: { locale: Locale }) {
           </Reveal>
           <Reveal delay={1}>
             <h2 className="display mt-8 text-3xl leading-[1.08] text-white sm:text-4xl md:text-5xl">
-              {t.title}
+              {heading}
             </h2>
           </Reveal>
           <Reveal delay={2}>
             <p className="mx-auto mt-6 max-w-xl text-lg text-white/70">
-              {t.text}
+              {body}
             </p>
           </Reveal>
 

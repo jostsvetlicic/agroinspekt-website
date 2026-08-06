@@ -14,6 +14,7 @@ export interface Dict {
     about: string;
     services: string;
     projects: string;
+    coverage: string;
     contact: string;
     requestCta: string;
   };
@@ -163,6 +164,7 @@ const en: Dict = {
     about: "About",
     services: "Services",
     projects: "Projects",
+    coverage: "Coverage",
     contact: "Contact",
     requestCta: "Request an inspection",
   },
@@ -446,6 +448,7 @@ const si: Dict = {
     about: "O nas",
     services: "Storitve",
     projects: "Projekti",
+    coverage: "Pokritost",
     contact: "Kontakt",
     requestCta: "Naročite pregled",
   },

@@ -100,5 +100,6 @@ export const navLinks = [
   { key: "about", href: "/about" },
   { key: "services", href: "/services" },
   { key: "projects", href: "/projects" },
+  { key: "coverage", href: "/coverage" },
   { key: "contact", href: "/contact" },
 ] as const;

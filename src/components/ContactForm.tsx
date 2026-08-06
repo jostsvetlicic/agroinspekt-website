@@ -22,18 +22,34 @@ export default function ContactForm({ locale }: { locale: Locale }) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!FORMSPREE_ENDPOINT) {
-      setStatus("error");
-      return;
-    }
     setStatus("sending");
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const payload = Object.fromEntries(fd.entries());
+
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      // Primary: save to the database so it lands in the admin.
+      const res = await fetch("/api/enquiries", {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: new FormData(e.currentTarget),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...payload, locale }),
       });
-      setStatus(res.ok ? "sent" : "error");
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      // Secondary (best effort): also email via Formspree if configured.
+      if (FORMSPREE_ENDPOINT) {
+        fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: fd,
+        }).catch(() => {});
+      }
+
+      setStatus("sent");
     } catch {
       setStatus("error");
     }

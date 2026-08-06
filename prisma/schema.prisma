@@ -1,0 +1,113 @@
+// Agroinspekt admin + content database.
+//
+// PROVIDER SWITCHING (this is the "provider switchable" setup):
+//   - Production (Netlify): PostgreSQL. The committed provider below is
+//     "postgresql" so the Netlify build generates the correct client.
+//   - Local development / demo: SQLite (zero setup). Run `npm run db:sqlite`
+//     to switch this provider to sqlite locally (leave that change
+//     uncommitted), then `npm run db:setup`. `npm run db:postgres` switches
+//     it back. Models below use only types supported by BOTH engines, so the
+//     same schema runs on either without edits beyond the provider line.
+
+generator client {
+  provider      = "prisma-client-js"
+  // "native" for local dev; the rhel target is the Netlify/AWS Lambda runtime
+  // so the query engine is present in production (no serverless engine error).
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Admin users. Email + password (hashed with bcrypt).
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// The eight inspection domains. Seeded from src/config/services.ts.
+/// Array fields (covers/commodities/methods/standards) are stored as JSON
+/// strings so the schema stays identical on SQLite and PostgreSQL.
+model Service {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  order          Int      @default(0)
+  published      Boolean  @default(true)
+  icon           String   @default("general")
+  titleEn        String
+  titleSi        String
+  taglineEn      String
+  taglineSi      String
+  introEn        String
+  introSi        String
+  coversEn       String   @default("[]")
+  coversSi       String   @default("[]")
+  commoditiesEn  String   @default("[]")
+  commoditiesSi  String   @default("[]")
+  methodsEn      String   @default("[]")
+  methodsSi      String   @default("[]")
+  standardsEn    String   @default("[]")
+  standardsSi    String   @default("[]")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+/// Operational inspection records — the foundation for the 2027 mobile app.
+model Inspection {
+  id           String    @id @default(cuid())
+  reference    String?
+  commodity    String
+  serviceSlug  String?
+  client       String?
+  location     String?
+  status       String    @default("scheduled") // scheduled | in_progress | completed
+  scheduledFor DateTime?
+  notes        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+/// Enquiries submitted through the public contact form.
+model Enquiry {
+  id          String   @id @default(cuid())
+  name        String
+  company     String?
+  email       String
+  phone       String?
+  commodity   String?
+  serviceType String?
+  location    String?
+  dateFrom    String?
+  dateTo      String?
+  message     String?
+  locale      String   @default("en")
+  handled     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+/// The four homepage counting figures. Seeded from src/config/metrics.ts.
+model Metric {
+  id        String   @id @default(cuid())
+  order     Int      @default(0)
+  value     Int
+  suffix    String   @default("+")
+  labelEn   String
+  labelSi   String
+  updatedAt DateTime @updatedAt
+}
+
+/// Editable site content + flags, keyed (e.g. "metrics.showCaption",
+/// "metrics.caption", "hero.subtitle"). Bilingual value columns.
+model Setting {
+  key       String   @id
+  valueEn   String?
+  valueSi   String?
+  updatedAt DateTime @updatedAt
+}

@@ -7,16 +7,24 @@ import Reveal from "@/components/Reveal";
 import ClipReveal from "@/components/ClipReveal";
 import { Mail, Phone, Pin } from "@/components/Icons";
 
-export default function Coverage({ locale }: { locale: Locale }) {
+export default function Coverage({
+  locale,
+  showHeading = true,
+}: {
+  locale: Locale;
+  showHeading?: boolean;
+}) {
   const t = getDict(locale).coverage;
 
   return (
     <section className="section section-alt">
       <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <SectionHeading eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
+          {showHeading && (
+            <SectionHeading eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
+          )}
 
-          <div className="mt-10 space-y-4">
+          <div className={showHeading ? "mt-10 space-y-4" : "space-y-4"}>
             {offices.map((o, i) => {
               const emphasised = "emphasis" in o && o.emphasis;
               return (
