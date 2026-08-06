@@ -17,7 +17,7 @@ export default function StructuredData() {
     address: {
       "@type": "PostalAddress",
       streetAddress: o.street,
-      postalCode: o.postal.replace(/^\d+\s/, ""),
+      postalCode: o.postal.match(/^\d+/)?.[0] ?? o.postal,
       addressLocality: o.city,
       addressCountry: "SI",
     },
