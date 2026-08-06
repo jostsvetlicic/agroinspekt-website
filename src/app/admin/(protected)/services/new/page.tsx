@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { locales, type Locale } from "@/config/site";
 import ServiceForm from "../ServiceForm";
 
 export const dynamic = "force-dynamic";
+
+const empty = () =>
+  Object.fromEntries(locales.map((l) => [l, ""])) as Record<Locale, string>;
 
 export default function NewServicePage() {
   return (
@@ -24,20 +28,13 @@ export default function NewServicePage() {
             order: 0,
             published: true,
             icon: "general",
-            titleEn: "",
-            titleSi: "",
-            taglineEn: "",
-            taglineSi: "",
-            introEn: "",
-            introSi: "",
-            coversEn: "",
-            coversSi: "",
-            commoditiesEn: "",
-            commoditiesSi: "",
-            methodsEn: "",
-            methodsSi: "",
-            standardsEn: "",
-            standardsSi: "",
+            title: empty(),
+            tagline: empty(),
+            intro: empty(),
+            covers: empty(),
+            commodities: empty(),
+            methods: empty(),
+            standards: empty(),
           }}
         />
       </div>

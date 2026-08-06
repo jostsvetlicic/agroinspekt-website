@@ -1,18 +1,29 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { locales, type Locale } from "@/config/site";
 import ServiceForm from "../ServiceForm";
 
 export const dynamic = "force-dynamic";
 
-const toText = (json: string) => {
+function parse(json: string): Record<string, unknown> {
   try {
-    const a = JSON.parse(json);
-    return Array.isArray(a) ? a.join("\n") : "";
+    return JSON.parse(json || "{}");
   } catch {
-    return "";
+    return {};
   }
-};
+}
+const mapText = (json: string): Record<Locale, string> =>
+  Object.fromEntries(
+    locales.map((l) => [l, typeof parse(json)[l] === "string" ? (parse(json)[l] as string) : ""]),
+  ) as Record<Locale, string>;
+const mapList = (json: string): Record<Locale, string> =>
+  Object.fromEntries(
+    locales.map((l) => {
+      const v = parse(json)[l];
+      return [l, Array.isArray(v) ? (v as string[]).join("\n") : ""];
+    }),
+  ) as Record<Locale, string>;
 
 export default async function EditServicePage({
   params,
@@ -29,9 +40,9 @@ export default async function EditServicePage({
         ← Services
       </Link>
       <h1 className="mt-2 font-display text-2xl font-semibold text-ink">
-        {s.titleEn}
+        {mapText(s.title).en || s.slug}
       </h1>
-      <p className="mt-1 text-sm text-grey">Edit both languages, then save.</p>
+      <p className="mt-1 text-sm text-grey">Edit every language, then save.</p>
 
       <div className="mt-6">
         <ServiceForm
@@ -42,20 +53,13 @@ export default async function EditServicePage({
             order: s.order,
             published: s.published,
             icon: s.icon,
-            titleEn: s.titleEn,
-            titleSi: s.titleSi,
-            taglineEn: s.taglineEn,
-            taglineSi: s.taglineSi,
-            introEn: s.introEn,
-            introSi: s.introSi,
-            coversEn: toText(s.coversEn),
-            coversSi: toText(s.coversSi),
-            commoditiesEn: toText(s.commoditiesEn),
-            commoditiesSi: toText(s.commoditiesSi),
-            methodsEn: toText(s.methodsEn),
-            methodsSi: toText(s.methodsSi),
-            standardsEn: toText(s.standardsEn),
-            standardsSi: toText(s.standardsSi),
+            title: mapText(s.title),
+            tagline: mapText(s.tagline),
+            intro: mapText(s.intro),
+            covers: mapList(s.covers),
+            commodities: mapList(s.commodities),
+            methods: mapList(s.methods),
+            standards: mapList(s.standards),
           }}
         />
       </div>

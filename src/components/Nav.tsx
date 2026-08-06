@@ -51,19 +51,22 @@ export default function Nav({ locale }: { locale: Locale }) {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((l) => (
-            <Link
-              key={l.key}
-              href={localePath(locale, l.href)}
-              className={`text-sm transition-colors ${
-                isActive(l.href)
-                  ? "text-ink"
-                  : "text-grey hover:text-ink"
-              }`}
-            >
-              {t[l.key as keyof typeof t]}
-            </Link>
-          ))}
+          {navLinks.map((l) => {
+            const active = isActive(l.href);
+            return (
+              <Link
+                key={l.key}
+                href={localePath(locale, l.href)}
+                className={`relative text-sm transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:bg-green after:transition-all after:duration-200 after:ease-out ${
+                  active
+                    ? "text-ink after:w-full"
+                    : "text-grey hover:text-ink after:w-0"
+                }`}
+              >
+                {t[l.key as keyof typeof t]}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-4">

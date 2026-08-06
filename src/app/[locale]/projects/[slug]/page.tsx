@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Locale } from "@/config/site";
 import { locales } from "@/config/site";
 import { projects, getProject } from "@/config/projects";
-import { getService } from "@/config/services";
+import { getServiceBySlug } from "@/lib/services";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale, localePath } from "@/lib/i18n";
 import { media } from "@/config/media";
@@ -48,7 +48,7 @@ export default async function ProjectDetail({
   const t = getDict(l).projects;
   const nav = getDict(l).nav;
   const img = media.project[project.slug];
-  const service = getService(project.serviceSlug);
+  const service = await getServiceBySlug(project.serviceSlug);
 
   const others = projects.filter((p) => p.slug !== slug).slice(0, 3);
 

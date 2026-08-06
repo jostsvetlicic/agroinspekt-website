@@ -14,6 +14,15 @@ export interface MediaItem {
   swap: string; // note: how the client could improve this image
 }
 
+/**
+ * Header image for a service by slug. Services created in the admin may use a
+ * slug with no bespoke photo yet — fall back to a generic on-site shot so the
+ * page never breaks. Swap in a real photo by adding the slug to `media.service`.
+ */
+export function serviceMedia(slug: string): MediaItem {
+  return media.service[slug] ?? media.whatWeDo;
+}
+
 export const media = {
   // Full-bleed homepage hero - the client's marine/vessel photograph.
   hero: {

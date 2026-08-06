@@ -1,11 +1,12 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/config/site";
-import { services } from "@/config/services";
+import { getServiceSlugs } from "@/lib/services";
 import { projects } from "@/config/projects";
 
 const base = "https://agroinspekt.si";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const serviceSlugs = await getServiceSlugs();
   const paths = [
     "",
     "/about",
@@ -14,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/coverage",
     "/contact",
     "/privacy",
-    ...services.map((s) => `/services/${s.slug}`),
+    ...serviceSlugs.map((slug) => `/services/${slug}`),
     ...projects.map((p) => `/projects/${p.slug}`),
   ];
 

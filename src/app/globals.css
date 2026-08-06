@@ -28,6 +28,13 @@
     color: #1a2332;
   }
 
+  /* Keyboard focus — a clear, calm accent ring (never for mouse clicks). */
+  :focus-visible {
+    outline: 2px solid rgba(19, 158, 62, 0.6);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
   /* Data/numbers should read as precise, tabular figures */
   .tabular {
     font-variant-numeric: tabular-nums;

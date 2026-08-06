@@ -96,6 +96,23 @@ constants if you want canonical/sitemap URLs to match a different domain.
 
 ---
 
+## Adding another language later (e.g. Portuguese for Brazil)
+
+The whole site reads text from a translation layer — nothing is hardcoded — so a
+new language is additive, no schema migration:
+
+1. Add the locale to `src/config/site.ts`: `locales` and `Locale` (e.g. `"pt"`).
+2. Add a `pt` dictionary object in `src/i18n/dictionaries.ts` (copy `en`, translate).
+   TypeScript will flag anything you miss — the `Dict` type must be satisfied.
+3. Admin-managed content (services, figures, captions, CTA) is stored as a
+   locale-map (`{"en":…,"si":…}`). The admin forms **automatically render an
+   input per locale**, so a new locale just shows empty `PT` fields to fill in.
+   Existing rows fall back to the default locale until translated.
+4. The language switcher, middleware, sitemap and `hreflang` are all driven by
+   the `locales` array — they pick up the new language with no further changes.
+
+No machine translation is wired in; you translate deliberately, per language.
+
 ## Troubleshooting
 
 - **Admin 500 / "AUTH_SECRET is not set"** → set `AUTH_SECRET` in Netlify env vars, redeploy.

@@ -1,23 +1,27 @@
 import "server-only";
 import { prisma } from "./db";
 import { metrics as metricsConfig } from "@/config/metrics";
+import { type Locale } from "@/config/site";
+import { tr, buildLocaleMap } from "./i18n";
 
 export type MetricItem = {
   value: number;
   suffix: string;
-  label: { en: string; si: string };
+  label: Record<Locale, string>;
 };
 
 export type MetricsData = {
   items: MetricItem[];
   showCaption: boolean;
-  caption: { en: string; si: string };
+  caption: Record<Locale, string>;
 };
 
+const cfg = (m: { en: string; si: string }, l: Locale) =>
+  (m as Record<string, string>)[l] ?? m.en ?? "";
+
 /**
- * Homepage metrics — read from the database (editable in the admin), with a
- * fall back to the static config if the DB is unavailable, so the public site
- * NEVER errors on a database hiccup.
+ * Homepage metrics — from the database (editable in the admin), falling back to
+ * static config if the DB is unavailable so the public site NEVER errors.
  */
 export async function getMetrics(): Promise<MetricsData> {
   try {
@@ -31,35 +35,32 @@ export async function getMetrics(): Promise<MetricsData> {
       items: rows.map((r) => ({
         value: r.value,
         suffix: r.suffix,
-        label: { en: r.labelEn, si: r.labelSi },
+        label: buildLocaleMap((l) => tr(r.label, l)),
       })),
-      showCaption: (showCap?.valueEn ?? "true") === "true",
-      caption: {
-        en: cap?.valueEn ?? metricsConfig.caption.en,
-        si: cap?.valueSi ?? metricsConfig.caption.si,
-      },
+      showCaption: tr(showCap?.value, "en") !== "false",
+      caption: buildLocaleMap((l) => tr(cap?.value, l) || cfg(metricsConfig.caption, l)),
     };
   } catch {
     return {
       items: metricsConfig.items.map((m) => ({
         value: m.value,
         suffix: m.suffix,
-        label: m.label,
+        label: buildLocaleMap((l) => cfg(m.label, l)),
       })),
       showCaption: metricsConfig.showCaption,
-      caption: metricsConfig.caption,
+      caption: buildLocaleMap((l) => cfg(metricsConfig.caption, l)),
     };
   }
 }
 
-/** Read a set of editable settings as a { key: {en, si} } map (empty on error). */
+/** Read editable settings as { key: {en, si, …} } (empty on DB error). */
 export async function getSettingsMap(
   keys: string[],
-): Promise<Record<string, { en: string | null; si: string | null }>> {
+): Promise<Record<string, Record<Locale, string>>> {
   try {
     const rows = await prisma.setting.findMany({ where: { key: { in: keys } } });
     return Object.fromEntries(
-      rows.map((r) => [r.key, { en: r.valueEn, si: r.valueSi }]),
+      rows.map((r) => [r.key, buildLocaleMap((l) => tr(r.value, l))]),
     );
   } catch {
     return {};

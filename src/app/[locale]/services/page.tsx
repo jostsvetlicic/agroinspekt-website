@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/config/site";
-import { services } from "@/config/services";
+import { getServices } from "@/lib/services";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale } from "@/lib/i18n";
 import PageHero from "@/components/PageHero";
@@ -31,6 +31,7 @@ export default async function ServicesPage({
   const l = locale as Locale;
   const t = getDict(l).services;
   const nav = getDict(l).nav;
+  const services = await getServices();
 
   return (
     <>

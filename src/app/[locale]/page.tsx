@@ -5,6 +5,7 @@ import { getDict } from "@/i18n/dictionaries";
 import { media } from "@/config/media";
 import { features } from "@/config/features";
 import { getMetrics, getSettingsMap } from "@/lib/content";
+import { getServices } from "@/lib/services";
 import Hero from "@/components/sections/Hero";
 import HeroSequence from "@/components/sections/HeroSequence";
 import StatementBand from "@/components/sections/StatementBand";
@@ -38,12 +39,13 @@ export default async function Home({
   const s = getDict(l).statements;
 
   // DB-backed content (editable in the admin), with static fallback.
-  const [metrics, settings] = await Promise.all([
+  const [metrics, settings, services] = await Promise.all([
     getMetrics(),
     getSettingsMap(["finalCta.title", "finalCta.text"]),
+    getServices(),
   ]);
-  const finalCtaTitle = settings["finalCta.title"]?.[l] ?? undefined;
-  const finalCtaText = settings["finalCta.text"]?.[l] ?? undefined;
+  const finalCtaTitle = settings["finalCta.title"]?.[l] || undefined;
+  const finalCtaText = settings["finalCta.text"]?.[l] || undefined;
 
   return (
     <>
@@ -53,7 +55,7 @@ export default async function Home({
         <Hero locale={l} />
       )}
 
-      <PinnedServices locale={l} />
+      <PinnedServices locale={l} services={services} />
 
       <StatementBand
         media={media.coverage}

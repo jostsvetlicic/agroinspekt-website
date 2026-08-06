@@ -1,13 +1,14 @@
 import { brand, offices, whatsapp } from "@/config/site";
-import { services } from "@/config/services";
+import { getServices } from "@/lib/services";
 
 /**
  * JSON-LD structured data. An Organization plus a LocalBusiness node per office
  * (Koper carries geo-coordinates for local "cargo inspection Koper" search),
- * and the eight services as an offer catalog for topical relevance.
+ * and the services as an offer catalog for topical relevance.
  */
-export default function StructuredData() {
+export default async function StructuredData() {
   const site = "https://agroinspekt.si";
+  const services = await getServices();
 
   const localBusiness = offices.map((o) => ({
     "@type": "LocalBusiness",

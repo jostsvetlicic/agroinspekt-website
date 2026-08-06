@@ -21,7 +21,7 @@ export default function InspectionForm({
   mode,
 }: {
   values: InspectionFormValues;
-  services: { slug: string; titleEn: string }[];
+  services: { slug: string; title: string }[];
   mode: "create" | "edit";
 }) {
   return (
@@ -52,7 +52,7 @@ export default function InspectionForm({
             <option value="">— none —</option>
             {services.map((s) => (
               <option key={s.slug} value={s.slug}>
-                {s.titleEn}
+                {s.title}
               </option>
             ))}
           </select>

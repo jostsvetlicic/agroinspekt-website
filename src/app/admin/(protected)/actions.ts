@@ -4,23 +4,35 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { locales } from "@/config/site";
 
 async function requireAuth() {
   if (!(await getSession())) redirect("/admin/login");
 }
 
 const str = (fd: FormData, k: string) => String(fd.get(k) ?? "").trim();
-const lines = (fd: FormData, k: string) =>
+
+// Build a locale-map JSON string from per-locale form fields "base.en", "base.si", …
+const jsonText = (fd: FormData, base: string) =>
+  JSON.stringify(Object.fromEntries(locales.map((l) => [l, str(fd, `${base}.${l}`)])));
+
+const jsonList = (fd: FormData, base: string) =>
   JSON.stringify(
-    str(fd, k)
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean),
+    Object.fromEntries(
+      locales.map((l) => [
+        l,
+        str(fd, `${base}.${l}`)
+          .split("\n")
+          .map((s) => s.trim())
+          .filter(Boolean),
+      ]),
+    ),
   );
 
-function revalidatePublicHome() {
-  revalidatePath("/en");
-  revalidatePath("/si");
+// Service/content edits change the footer + homepage + service pages, so
+// revalidate everything under the root layout.
+function revalidateSite() {
+  revalidatePath("/", "layout");
 }
 
 /* ── Enquiries ──────────────────────────────────────────────────────────── */
@@ -52,22 +64,16 @@ export async function updateService(formData: FormData) {
       order: Number(formData.get("order") ?? 0),
       published: formData.get("published") === "on",
       icon: str(formData, "icon") || "general",
-      titleEn: str(formData, "titleEn"),
-      titleSi: str(formData, "titleSi"),
-      taglineEn: str(formData, "taglineEn"),
-      taglineSi: str(formData, "taglineSi"),
-      introEn: str(formData, "introEn"),
-      introSi: str(formData, "introSi"),
-      coversEn: lines(formData, "coversEn"),
-      coversSi: lines(formData, "coversSi"),
-      commoditiesEn: lines(formData, "commoditiesEn"),
-      commoditiesSi: lines(formData, "commoditiesSi"),
-      methodsEn: lines(formData, "methodsEn"),
-      methodsSi: lines(formData, "methodsSi"),
-      standardsEn: lines(formData, "standardsEn"),
-      standardsSi: lines(formData, "standardsSi"),
+      title: jsonText(formData, "title"),
+      tagline: jsonText(formData, "tagline"),
+      intro: jsonText(formData, "intro"),
+      covers: jsonList(formData, "covers"),
+      commodities: jsonList(formData, "commodities"),
+      methods: jsonList(formData, "methods"),
+      standards: jsonList(formData, "standards"),
     },
   });
+  revalidateSite();
   revalidatePath("/admin/services");
   redirect("/admin/services");
 }
@@ -83,14 +89,12 @@ export async function createService(formData: FormData) {
       slug,
       order: count,
       icon: str(formData, "icon") || "general",
-      titleEn: str(formData, "titleEn") || "Untitled service",
-      titleSi: str(formData, "titleSi") || "Neimenovana storitev",
-      taglineEn: str(formData, "taglineEn"),
-      taglineSi: str(formData, "taglineSi"),
-      introEn: str(formData, "introEn"),
-      introSi: str(formData, "introSi"),
+      title: jsonText(formData, "title"),
+      tagline: jsonText(formData, "tagline"),
+      intro: jsonText(formData, "intro"),
     },
   });
+  revalidateSite();
   revalidatePath("/admin/services");
   redirect("/admin/services");
 }
@@ -98,6 +102,7 @@ export async function createService(formData: FormData) {
 export async function deleteService(formData: FormData) {
   await requireAuth();
   await prisma.service.delete({ where: { id: str(formData, "id") } });
+  revalidateSite();
   revalidatePath("/admin/services");
 }
 
@@ -144,11 +149,11 @@ export async function deleteInspection(formData: FormData) {
 
 /* ── Content (metrics figures + settings) ───────────────────────────────── */
 
-async function upsertSetting(key: string, valueEn: string, valueSi: string) {
+async function upsertSetting(key: string, value: string) {
   await prisma.setting.upsert({
     where: { key },
-    update: { valueEn, valueSi },
-    create: { key, valueEn, valueSi },
+    update: { value },
+    create: { key, value },
   });
 }
 
@@ -157,36 +162,28 @@ export async function updateContent(formData: FormData) {
 
   const ids = formData.getAll("metricId").map(String);
   for (const id of ids) {
+    const label = JSON.stringify(
+      Object.fromEntries(
+        locales.map((l) => [l, String(formData.get(`label_${id}_${l}`) ?? "").trim()]),
+      ),
+    );
     await prisma.metric.update({
       where: { id },
       data: {
         value: Math.max(0, Math.round(Number(formData.get(`value_${id}`) ?? 0))),
         suffix: String(formData.get(`suffix_${id}`) ?? "+").slice(0, 4),
-        labelEn: String(formData.get(`labelEn_${id}`) ?? "").trim(),
-        labelSi: String(formData.get(`labelSi_${id}`) ?? "").trim(),
+        label,
       },
     });
   }
 
   const showCaption = formData.get("showCaption") === "on" ? "true" : "false";
-  await upsertSetting("metrics.showCaption", showCaption, showCaption);
-  await upsertSetting(
-    "metrics.caption",
-    str(formData, "captionEn"),
-    str(formData, "captionSi"),
-  );
-  await upsertSetting(
-    "finalCta.title",
-    str(formData, "finalCtaTitleEn"),
-    str(formData, "finalCtaTitleSi"),
-  );
-  await upsertSetting(
-    "finalCta.text",
-    str(formData, "finalCtaTextEn"),
-    str(formData, "finalCtaTextSi"),
-  );
+  await upsertSetting("metrics.showCaption", JSON.stringify({ en: showCaption }));
+  await upsertSetting("metrics.caption", jsonText(formData, "caption"));
+  await upsertSetting("finalCta.title", jsonText(formData, "finalCtaTitle"));
+  await upsertSetting("finalCta.text", jsonText(formData, "finalCtaText"));
 
-  revalidatePublicHome();
+  revalidateSite();
   revalidatePath("/admin/content");
   redirect("/admin/content?saved=1");
 }

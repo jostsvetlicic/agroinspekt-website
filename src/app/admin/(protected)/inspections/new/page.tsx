@@ -1,14 +1,20 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
+import { defaultLocale } from "@/config/site";
+import { tr } from "@/lib/i18n";
 import InspectionForm from "../InspectionForm";
 
 export const dynamic = "force-dynamic";
 
 export default async function NewInspectionPage() {
-  const services = await prisma.service.findMany({
+  const rows = await prisma.service.findMany({
     orderBy: { order: "asc" },
-    select: { slug: true, titleEn: true },
+    select: { slug: true, title: true },
   });
+  const services = rows.map((s) => ({
+    slug: s.slug,
+    title: tr(s.title, defaultLocale) || s.slug,
+  }));
 
   return (
     <div>

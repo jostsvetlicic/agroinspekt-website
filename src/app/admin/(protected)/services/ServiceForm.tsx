@@ -1,5 +1,6 @@
 import { createService, updateService } from "../actions";
 import { Field, SaveBar, inputCls, labelCls } from "../ui";
+import { locales, type Locale } from "@/config/site";
 
 const ICONS = [
   "general",
@@ -18,37 +19,27 @@ export type ServiceFormValues = {
   order: number;
   published: boolean;
   icon: string;
-  titleEn: string;
-  titleSi: string;
-  taglineEn: string;
-  taglineSi: string;
-  introEn: string;
-  introSi: string;
-  coversEn: string;
-  coversSi: string;
-  commoditiesEn: string;
-  commoditiesSi: string;
-  methodsEn: string;
-  methodsSi: string;
-  standardsEn: string;
-  standardsSi: string;
+  title: Record<Locale, string>;
+  tagline: Record<Locale, string>;
+  intro: Record<Locale, string>;
+  covers: Record<Locale, string>;
+  commodities: Record<Locale, string>;
+  methods: Record<Locale, string>;
+  standards: Record<Locale, string>;
 };
 
-function Pair({
+/** One input per configured locale — adding a language shows a field here. */
+function Localized({
   label,
-  nameEn,
-  nameSi,
-  en,
-  si,
+  base,
+  values,
   textarea,
   rows,
   hint,
 }: {
   label: string;
-  nameEn: string;
-  nameSi: string;
-  en: string;
-  si: string;
+  base: string;
+  values: Record<Locale, string>;
   textarea?: boolean;
   rows?: number;
   hint?: string;
@@ -57,29 +48,26 @@ function Pair({
     <div>
       <p className={labelCls}>{label}</p>
       <div className="grid gap-3 sm:grid-cols-2">
-        {[
-          { code: "EN", name: nameEn, val: en },
-          { code: "SI", name: nameSi, val: si },
-        ].map((f) => (
-          <div key={f.code}>
+        {locales.map((l) => (
+          <div key={l}>
             {textarea ? (
               <textarea
-                name={f.name}
-                defaultValue={f.val}
+                name={`${base}.${l}`}
+                defaultValue={values[l] ?? ""}
                 rows={rows ?? 3}
                 className={`${inputCls} resize-y`}
-                placeholder={f.code}
+                placeholder={l.toUpperCase()}
               />
             ) : (
               <input
-                name={f.name}
-                defaultValue={f.val}
+                name={`${base}.${l}`}
+                defaultValue={values[l] ?? ""}
                 className={inputCls}
-                placeholder={f.code}
+                placeholder={l.toUpperCase()}
               />
             )}
             <span className="mt-1 block text-[11px] uppercase tracking-wide text-grey-light">
-              {f.code}
+              {l}
             </span>
           </div>
         ))}
@@ -96,13 +84,16 @@ export default function ServiceForm({
   values: ServiceFormValues;
   mode: "create" | "edit";
 }) {
-  const listHint = "One item per line.";
+  const listHint = "One item per line, per language.";
   return (
     <form action={mode === "edit" ? updateService : createService} className="space-y-6">
       {mode === "edit" && <input type="hidden" name="id" value={values.id} />}
 
       <div className="grid gap-4 sm:grid-cols-[1fr_auto_auto]">
-        <Field label="Slug" hint={mode === "edit" ? "Fixed after creation." : "e.g. marine-surveys"}>
+        <Field
+          label="Slug"
+          hint={mode === "edit" ? "Fixed after creation." : "e.g. marine-surveys"}
+        >
           {mode === "edit" ? (
             <input className={`${inputCls} bg-offwhite`} defaultValue={values.slug} disabled />
           ) : (
@@ -135,19 +126,19 @@ export default function ServiceForm({
           defaultChecked={values.published}
           className="h-4 w-4 rounded border-line text-green focus:ring-green/30"
         />
-        Published
+        Published (visible on the public site)
       </label>
 
-      <Pair label="Title" nameEn="titleEn" nameSi="titleSi" en={values.titleEn} si={values.titleSi} />
-      <Pair label="Tagline" nameEn="taglineEn" nameSi="taglineSi" en={values.taglineEn} si={values.taglineSi} textarea rows={2} />
-      <Pair label="Intro" nameEn="introEn" nameSi="introSi" en={values.introEn} si={values.introSi} textarea rows={4} />
+      <Localized label="Title" base="title" values={values.title} />
+      <Localized label="Tagline" base="tagline" values={values.tagline} textarea rows={2} />
+      <Localized label="Intro" base="intro" values={values.intro} textarea rows={4} />
 
       {mode === "edit" && (
         <>
-          <Pair label="Covers" nameEn="coversEn" nameSi="coversSi" en={values.coversEn} si={values.coversSi} textarea rows={5} hint={listHint} />
-          <Pair label="Commodities" nameEn="commoditiesEn" nameSi="commoditiesSi" en={values.commoditiesEn} si={values.commoditiesSi} textarea rows={5} hint={listHint} />
-          <Pair label="Methods" nameEn="methodsEn" nameSi="methodsSi" en={values.methodsEn} si={values.methodsSi} textarea rows={5} hint={listHint} />
-          <Pair label="Standards" nameEn="standardsEn" nameSi="standardsSi" en={values.standardsEn} si={values.standardsSi} textarea rows={4} hint={listHint} />
+          <Localized label="Covers" base="covers" values={values.covers} textarea rows={5} hint={listHint} />
+          <Localized label="Commodities" base="commodities" values={values.commodities} textarea rows={5} hint={listHint} />
+          <Localized label="Methods" base="methods" values={values.methods} textarea rows={5} hint={listHint} />
+          <Localized label="Standards" base="standards" values={values.standards} textarea rows={4} hint={listHint} />
         </>
       )}
 

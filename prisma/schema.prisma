@@ -33,30 +33,26 @@ model User {
 }
 
 /// The eight inspection domains. Seeded from src/config/services.ts.
-/// Array fields (covers/commodities/methods/standards) are stored as JSON
-/// strings so the schema stays identical on SQLite and PostgreSQL.
+/// TRANSLATABLE fields hold a locale-map JSON string, e.g.
+///   title       -> {"en":"...","si":"..."}
+///   covers      -> {"en":["...","..."],"si":["...","..."]}
+/// Adding a language later means adding a locale key to these maps (via the
+/// admin) — no schema migration. Stored as String for SQLite/Postgres parity.
 model Service {
-  id             String   @id @default(cuid())
-  slug           String   @unique
-  order          Int      @default(0)
-  published      Boolean  @default(true)
-  icon           String   @default("general")
-  titleEn        String
-  titleSi        String
-  taglineEn      String
-  taglineSi      String
-  introEn        String
-  introSi        String
-  coversEn       String   @default("[]")
-  coversSi       String   @default("[]")
-  commoditiesEn  String   @default("[]")
-  commoditiesSi  String   @default("[]")
-  methodsEn      String   @default("[]")
-  methodsSi      String   @default("[]")
-  standardsEn    String   @default("[]")
-  standardsSi    String   @default("[]")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  icon        String   @default("general")
+  title       String   @default("{}")
+  tagline     String   @default("{}")
+  intro       String   @default("{}")
+  covers      String   @default("{}")
+  commodities String   @default("{}")
+  methods     String   @default("{}")
+  standards   String   @default("{}")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 /// Operational inspection records — the foundation for the 2027 mobile app.
@@ -92,22 +88,21 @@ model Enquiry {
   createdAt   DateTime @default(now())
 }
 
-/// The four homepage counting figures. Seeded from src/config/metrics.ts.
+/// The four homepage counting figures. `label` is a locale-map JSON string.
 model Metric {
   id        String   @id @default(cuid())
   order     Int      @default(0)
   value     Int
   suffix    String   @default("+")
-  labelEn   String
-  labelSi   String
+  label     String   @default("{}")
   updatedAt DateTime @updatedAt
 }
 
 /// Editable site content + flags, keyed (e.g. "metrics.showCaption",
-/// "metrics.caption", "hero.subtitle"). Bilingual value columns.
+/// "metrics.caption", "finalCta.title"). `value` is a locale-map JSON string;
+/// flags store {"en":"true"} and are read locale-agnostically.
 model Setting {
   key       String   @id
-  valueEn   String?
-  valueSi   String?
+  value     String?  @default("{}")
   updatedAt DateTime @updatedAt
 }

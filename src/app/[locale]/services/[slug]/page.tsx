@@ -3,11 +3,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Locale } from "@/config/site";
 import { locales } from "@/config/site";
-import { services, getService } from "@/config/services";
+import { getServices, getServiceBySlug, getServiceSlugs } from "@/lib/services";
 import { projects } from "@/config/projects";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale, localePath } from "@/lib/i18n";
-import { media } from "@/config/media";
+import { serviceMedia } from "@/config/media";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import ProjectCard from "@/components/ProjectCard";
@@ -15,10 +15,9 @@ import ServiceCard from "@/components/ServiceCard";
 import CtaBand from "@/components/CtaBand";
 import { ServiceIcons, Check, ArrowRight } from "@/components/Icons";
 
-export function generateStaticParams() {
-  return locales.flatMap((locale) =>
-    services.map((s) => ({ locale, slug: s.slug }))
-  );
+export async function generateStaticParams() {
+  const slugs = await getServiceSlugs();
+  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
 }
 
 export async function generateMetadata({
@@ -28,7 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale)) return {};
-  const s = getService(slug);
+  const s = await getServiceBySlug(slug);
   if (!s) return {};
   const c = s[locale];
   return { title: c.title, description: c.tagline };
@@ -42,17 +41,19 @@ export default async function ServiceDetail({
   const { locale, slug } = await params;
   if (!isLocale(locale)) notFound();
   const l = locale as Locale;
-  const service = getService(slug);
+  const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
   const c = service[l];
   const t = getDict(l).servicePage;
   const nav = getDict(l).nav;
-  const Icon = ServiceIcons[service.icon];
-  const img = media.service[service.slug];
+  const Icon = ServiceIcons[service.icon] ?? ServiceIcons.general;
+  const img = serviceMedia(service.slug);
 
   const relatedProjects = projects.filter((p) => p.serviceSlug === slug);
-  const otherServices = services.filter((s) => s.slug !== slug).slice(0, 3);
+  const otherServices = (await getServices())
+    .filter((s) => s.slug !== slug)
+    .slice(0, 3);
 
   const columns: { title: string; items: string[] }[] = [
     { title: t.covers, items: c.covers },

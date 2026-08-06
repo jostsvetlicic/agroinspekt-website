@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { Locale } from "@/config/site";
 import { offices, whatsappHref } from "@/config/site";
+import { getServices } from "@/lib/services";
 import { getDict } from "@/i18n/dictionaries";
 import { isLocale } from "@/lib/i18n";
 import PageHero from "@/components/PageHero";
@@ -31,6 +32,10 @@ export default async function ContactPage({
   const t = getDict(l).contact;
   const nav = getDict(l).nav;
   const common = getDict(l).common;
+  const services = (await getServices()).map((s) => ({
+    slug: s.slug,
+    title: s[l].title,
+  }));
 
   return (
     <>
@@ -46,7 +51,7 @@ export default async function ContactPage({
         <div className="container-x grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
           {/* Form */}
           <Reveal>
-            <ContactForm locale={l} />
+            <ContactForm locale={l} services={services} />
           </Reveal>
 
           {/* Offices */}

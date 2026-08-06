@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/config/site";
-import type { Service } from "@/config/services";
-import { media } from "@/config/media";
+import type { LocalizedService } from "@/lib/services";
+import { serviceMedia } from "@/config/media";
 import { ArrowRight } from "./Icons";
 import { localePath } from "@/lib/i18n";
 
@@ -10,11 +10,11 @@ export default function ServiceCard({
   service,
   locale,
 }: {
-  service: Service;
+  service: LocalizedService;
   locale: Locale;
 }) {
   const c = service[locale];
-  const img = media.service[service.slug];
+  const img = serviceMedia(service.slug);
 
   return (
     <Link

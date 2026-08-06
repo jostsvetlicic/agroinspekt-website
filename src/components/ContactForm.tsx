@@ -2,13 +2,18 @@
 
 import { useState } from "react";
 import type { Locale } from "@/config/site";
-import { services } from "@/config/services";
 import { getDict } from "@/i18n/dictionaries";
 import { Check, ArrowRight } from "./Icons";
 
 const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
-export default function ContactForm({ locale }: { locale: Locale }) {
+export default function ContactForm({
+  locale,
+  services,
+}: {
+  locale: Locale;
+  services: { slug: string; title: string }[];
+}) {
   const t = getDict(locale).contact;
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
@@ -127,7 +132,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
             </option>
             {services.map((s) => (
               <option key={s.slug} value={s.slug}>
-                {s[locale].title}
+                {s.title}
               </option>
             ))}
           </select>

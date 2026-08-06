@@ -1,17 +1,18 @@
 import Link from "next/link";
 import type { Locale } from "@/config/site";
 import { brand, navLinks, offices, whatsappHref } from "@/config/site";
-import { services } from "@/config/services";
+import { getServices } from "@/lib/services";
 import { getDict } from "@/i18n/dictionaries";
 import { localePath } from "@/lib/i18n";
 import Logo from "./Logo";
 import { Mail, Phone, Pin, WhatsApp } from "./Icons";
 
-export default function Footer({ locale }: { locale: Locale }) {
+export default async function Footer({ locale }: { locale: Locale }) {
   const d = getDict(locale);
   const t = d.footer;
   const nav = d.nav;
   const year = new Date().getFullYear();
+  const services = await getServices();
 
   return (
     <footer id="site-footer" className="bg-ink text-white">

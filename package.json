@@ -15,7 +15,7 @@
     "db:studio": "prisma studio",
     "db:setup": "prisma db push && prisma db seed",
     "db:setup:local": "node scripts/db-provider.mjs sqlite && prisma db push && prisma db seed",
-    "db:reset:local": "node scripts/db-provider.mjs sqlite && prisma db push --force-reset && prisma db seed"
+    "db:reset:local": "node scripts/db-provider.mjs sqlite && rm -f prisma/dev.db && prisma db push && prisma db seed"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

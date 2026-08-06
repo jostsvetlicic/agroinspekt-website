@@ -2,6 +2,8 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { deleteService } from "../actions";
 import ConfirmButton from "../ConfirmButton";
+import { defaultLocale } from "@/config/site";
+import { tr } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -31,7 +33,7 @@ export default async function ServicesPage() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <p className="truncate text-sm font-medium text-ink">
-                  {s.titleEn}
+                  {tr(s.title, defaultLocale) || s.slug}
                 </p>
                 {!s.published && (
                   <span className="rounded-full bg-offwhite px-2 py-0.5 text-[11px] font-medium text-grey">
@@ -50,7 +52,7 @@ export default async function ServicesPage() {
             <form action={deleteService}>
               <input type="hidden" name="id" value={s.id} />
               <ConfirmButton
-                confirm={`Delete "${s.titleEn}"? This cannot be undone.`}
+                confirm={`Delete "${tr(s.title, defaultLocale) || s.slug}"? This cannot be undone.`}
                 className="text-sm text-grey transition-colors hover:text-red-600"
               >
                 Delete

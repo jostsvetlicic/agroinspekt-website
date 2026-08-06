@@ -10,8 +10,8 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import type { Locale } from "@/config/site";
-import { services } from "@/config/services";
-import { media } from "@/config/media";
+import type { LocalizedService } from "@/lib/services";
+import { serviceMedia } from "@/config/media";
 import { getDict } from "@/i18n/dictionaries";
 import { localePath } from "@/lib/i18n";
 import { ArrowRight } from "@/components/Icons";
@@ -26,7 +26,13 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * Used exactly once on the site. On small screens it degrades to a simple
  * stacked list of cards (no pinning), so touch scrolling stays natural.
  */
-export default function PinnedServices({ locale }: { locale: Locale }) {
+export default function PinnedServices({
+  locale,
+  services,
+}: {
+  locale: Locale;
+  services: LocalizedService[];
+}) {
   const t = getDict(locale).services;
   const intro = getDict(locale).whatWeDo.lead;
   const eyebrow = locale === "si" ? "Kaj pregledujemo" : "What we inspect";
@@ -49,7 +55,7 @@ export default function PinnedServices({ locale }: { locale: Locale }) {
   });
 
   const activeService = services[active];
-  const activeImg = media.service[activeService.slug];
+  const activeImg = serviceMedia(activeService.slug);
 
   return (
     <section className="section-alt">
@@ -171,7 +177,7 @@ export default function PinnedServices({ locale }: { locale: Locale }) {
       <div className="container-x pb-20 pt-12 lg:hidden">
         <ul className="space-y-4">
           {services.map((s, i) => {
-            const img = media.service[s.slug];
+            const img = serviceMedia(s.slug);
             return (
               <li key={s.slug}>
                 <Link
