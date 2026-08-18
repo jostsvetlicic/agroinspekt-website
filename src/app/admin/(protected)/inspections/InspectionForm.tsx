@@ -49,7 +49,7 @@ export default function InspectionForm({
         </Field>
         <Field label="Related service">
           <select name="serviceSlug" defaultValue={values.serviceSlug} className={inputCls}>
-            <option value="">— none —</option>
+            <option value="">None</option>
             {services.map((s) => (
               <option key={s.slug} value={s.slug}>
                 {s.title}
@@ -65,7 +65,7 @@ export default function InspectionForm({
         </Field>
         <div className="sm:col-span-2">
           <Field label="Location">
-            <input name="location" defaultValue={values.location} className={inputCls} placeholder="Port of Koper — berth 7" />
+            <input name="location" defaultValue={values.location} className={inputCls} placeholder="Port of Koper, berth 7" />
           </Field>
         </div>
         <div className="sm:col-span-2">

@@ -17,8 +17,8 @@ export async function generateMetadata({
   const t = getDict(locale).coverage;
   const description =
     locale === "si"
-      ? "Nadzor tovora v Luki Koper in po Sloveniji. Dve pisarni — Ljubljana in Koper — z nadzorniki na privezu."
-      : "Cargo inspection at the Port of Koper and across Slovenia. Two offices — Ljubljana and Koper — with inspectors on the quay.";
+      ? "Nadzor tovora v Luki Koper in po Sloveniji. Dve pisarni, Ljubljana in Koper, z nadzorniki na privezu."
+      : "Cargo inspection at the Port of Koper and across Slovenia. Two offices, Ljubljana and Koper, with inspectors on the quay.";
   return {
     title: `${t.title} · Port of Koper`,
     description,

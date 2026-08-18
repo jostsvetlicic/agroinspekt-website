@@ -94,7 +94,7 @@ export default async function Dashboard() {
                     ) : null}
                   </p>
                   <p className="truncate text-xs text-grey">
-                    {e.commodity ?? "—"} · {e.email}
+                    {e.commodity ?? "No commodity"} · {e.email}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-3">

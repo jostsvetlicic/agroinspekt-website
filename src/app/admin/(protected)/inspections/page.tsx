@@ -35,7 +35,7 @@ export default async function InspectionsPage() {
             Inspections
           </h1>
           <p className="mt-1 text-sm text-grey">
-            Operational records — the foundation for the 2027 mobile app.
+            Operational records, the foundation for the 2027 mobile app.
           </p>
         </div>
         <Link
@@ -63,7 +63,7 @@ export default async function InspectionsPage() {
                 </div>
                 <p className="truncate text-xs text-grey">
                   {i.reference ? `${i.reference} · ` : ""}
-                  {i.client ?? "—"}
+                  {i.client ?? "No client"}
                   {i.location ? ` · ${i.location}` : ""}
                 </p>
               </div>

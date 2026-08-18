@@ -94,9 +94,9 @@ async function main() {
   if ((await prisma.inspection.count()) === 0) {
     await prisma.inspection.createMany({
       data: [
-        { reference: "AGI-2026-014", commodity: "Sunflower oil", serviceSlug: "liquids", client: "Cargill", location: "Port of Koper — shore tank", status: "completed" },
-        { reference: "AGI-2026-021", commodity: "Wheat", serviceSlug: "grains-and-feedstuff", client: "ADM", location: "Port of Koper — berth 7", status: "in_progress" },
-        { reference: "AGI-2026-025", commodity: "Phosphate rock", serviceSlug: "minerals-coal-coke-ores", client: "Petrochema", location: "Port of Koper — dry bulk terminal", status: "scheduled" },
+        { reference: "AGI-2026-014", commodity: "Sunflower oil", serviceSlug: "liquids", client: "Cargill", location: "Port of Koper, shore tank", status: "completed" },
+        { reference: "AGI-2026-021", commodity: "Wheat", serviceSlug: "grains-and-feedstuff", client: "ADM", location: "Port of Koper, berth 7", status: "in_progress" },
+        { reference: "AGI-2026-025", commodity: "Phosphate rock", serviceSlug: "minerals-coal-coke-ores", client: "Petrochema", location: "Port of Koper, dry bulk terminal", status: "scheduled" },
       ],
     });
     console.log("✓ Seeded 3 sample inspections.");

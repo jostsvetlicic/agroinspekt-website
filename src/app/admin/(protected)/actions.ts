@@ -112,7 +112,7 @@ function inspectionData(formData: FormData) {
   const scheduled = str(formData, "scheduledFor");
   return {
     reference: str(formData, "reference") || null,
-    commodity: str(formData, "commodity") || "—",
+    commodity: str(formData, "commodity") || "Unspecified",
     serviceSlug: str(formData, "serviceSlug") || null,
     client: str(formData, "client") || null,
     location: str(formData, "location") || null,

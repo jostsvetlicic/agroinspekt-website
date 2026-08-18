@@ -13,7 +13,7 @@ export default async function StructuredData() {
   const localBusiness = offices.map((o) => ({
     "@type": "LocalBusiness",
     "@id": `${site}/#${o.id}`,
-    name: `${brand.legalName} — ${o.city}`,
+    name: `${brand.legalName}, ${o.city}`,
     parentOrganization: { "@id": `${site}/#org` },
     address: {
       "@type": "PostalAddress",

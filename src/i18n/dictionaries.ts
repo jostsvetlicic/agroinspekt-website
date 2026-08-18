@@ -54,6 +54,8 @@ export interface Dict {
     lead: string;
     points: { title: string; text: string }[];
     logoLabel: string;
+    logosTitle: string;
+    logosNote: string;
     items: { name: string; scope: string }[];
   };
   capability: {
@@ -280,6 +282,9 @@ const en: Dict = {
       },
     ],
     logoLabel: "Logo",
+    logosTitle: "Accreditations & memberships",
+    logosNote:
+      "Certification and membership logos will appear here once confirmed with Agroinspekt.",
     items: [],
   },
   capability: {
@@ -565,6 +570,9 @@ const si: Dict = {
       },
     ],
     logoLabel: "Logotip",
+    logosTitle: "Akreditacije in članstva",
+    logosNote:
+      "Logotipi certifikatov in članstev bodo prikazani tukaj, ko jih potrdimo z Agroinspektom.",
     items: [],
   },
   capability: {

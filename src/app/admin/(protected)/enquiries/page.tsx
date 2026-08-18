@@ -73,7 +73,7 @@ export default async function EnquiriesPage() {
                   label="Dates"
                   value={
                     e.dateFrom || e.dateTo
-                      ? `${e.dateFrom ?? "—"} → ${e.dateTo ?? "—"}`
+                      ? `${e.dateFrom ?? "?"} to ${e.dateTo ?? "?"}`
                       : null
                   }
                 />

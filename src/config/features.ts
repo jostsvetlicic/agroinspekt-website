@@ -20,9 +20,12 @@ export const features = {
   showTeam: false,
 
   /**
-   * Homepage hero style. "sequence" = the pinned horizontal three-slide
-   * sequence (HeroSequence); "classic" = the original single full-bleed hero
-   * (Hero). Both components remain in the codebase — flip this to switch back.
+   * Homepage hero style. "classic" = a single full-bleed hero (Hero): the value
+   * proposition and audience are stated immediately, the image is fully visible
+   * (never hidden behind a scroll trigger), and motion is a restrained load
+   * fade. This matches the serious inspection-firm benchmark (SGS, Bureau
+   * Veritas). "sequence" = the pinned horizontal three-slide variant
+   * (HeroSequence), kept in the codebase; flip this to use it.
    */
-  heroVariant: "sequence" as "sequence" | "classic",
+  heroVariant: "classic" as "sequence" | "classic",
 } as const;
