@@ -27,5 +27,5 @@ export const features = {
    * Veritas). "sequence" = the pinned horizontal three-slide variant
    * (HeroSequence), kept in the codebase; flip this to use it.
    */
-  heroVariant: "classic" as "sequence" | "classic",
+  heroVariant: "sequence" as "sequence" | "classic",
 } as const;
