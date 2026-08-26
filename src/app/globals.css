@@ -21,6 +21,7 @@
   body {
     @apply bg-white text-ink font-sans antialiased;
     font-feature-settings: "ss01", "cv01";
+    font-optical-sizing: auto;
   }
 
   ::selection {
@@ -106,6 +107,20 @@
   .card-hover {
     @apply hover:border-green/40 hover:shadow-card hover:-translate-y-0.5;
   }
+  /* Press feedback on tappable cards — scale down on press (Apple: respond on
+     press, and it matters most on touch where hover does not exist). */
+  .card-hover:active {
+    transform: scale(0.985);
+    transition: transform 110ms var(--ease-out);
+  }
+
+  /* Translucent chrome (nav) — a floating glass material that content scrolls
+     under, rather than an opaque bar. */
+  .nav-glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
 
   .link-green {
     @apply text-green-deep transition-colors hover:text-green;
@@ -171,14 +186,28 @@ html.lenis body {
   background: #b9c3bf;
 }
 
-/* Accessibility: honour reduced-motion. Keep opacity/colour, drop movement. */
+/* Accessibility: honour reduced-motion. Apple's rule is gentler, not none —
+   keep opacity/colour cross-fades that aid comprehension; drop only movement
+   (transforms/parallax) and looping animation. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    /* Animate only non-vestibular properties; transform changes apply instantly. */
+    transition-property: opacity, color, background-color, border-color, fill,
+      stroke, box-shadow !important;
+    transition-duration: 200ms !important;
+  }
+}
+
+/* Reduced transparency: make the glass chrome solid and drop the blur. */
+@media (prefers-reduced-transparency: reduce) {
+  .nav-glass {
+    background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }

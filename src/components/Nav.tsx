@@ -35,10 +35,10 @@ export default function Nav({ locale }: { locale: Locale }) {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 bg-white transition-all duration-300 ${
+      className={`nav-glass fixed inset-x-0 top-0 z-50 transition-shadow duration-300 ${
         scrolled
-          ? "border-b border-line shadow-[0_1px_0_rgba(16,24,40,0.04)]"
-          : "border-b border-transparent"
+          ? "shadow-[0_1px_0_rgba(16,24,40,0.05),0_10px_28px_-20px_rgba(16,24,40,0.22)]"
+          : "shadow-none"
       }`}
     >
       <div
@@ -57,7 +57,7 @@ export default function Nav({ locale }: { locale: Locale }) {
               <Link
                 key={l.key}
                 href={localePath(locale, l.href)}
-                className={`relative text-sm transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:bg-green after:transition-all after:duration-200 after:ease-out ${
+                className={`relative text-sm transition-[color,opacity] duration-200 active:opacity-60 after:absolute after:-bottom-1.5 after:left-0 after:h-[2px] after:bg-green after:transition-all after:duration-200 after:ease-out ${
                   active
                     ? "text-ink after:w-full"
                     : "text-grey hover:text-ink after:w-0"
