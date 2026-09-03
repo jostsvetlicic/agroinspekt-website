@@ -15,6 +15,8 @@ import Counters from "@/components/sections/Counters";
 import Accreditations from "@/components/sections/Accreditations";
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
 import Coverage from "@/components/sections/Coverage";
+import WhatYouReceive from "@/components/sections/WhatYouReceive";
+import Faq from "@/components/sections/Faq";
 import FinalCta from "@/components/sections/FinalCta";
 
 /**
@@ -80,6 +82,10 @@ export default async function Home({
       />
 
       <Coverage locale={l} />
+
+      <WhatYouReceive locale={l} />
+
+      <Faq locale={l} />
 
       <FinalCta locale={l} title={finalCtaTitle} text={finalCtaText} />
     </>

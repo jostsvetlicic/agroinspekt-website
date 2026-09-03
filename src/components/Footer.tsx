@@ -123,6 +123,12 @@ export default async function Footer({ locale }: { locale: Locale }) {
             >
               {t.legalPrivacy}
             </Link>
+            <Link
+              href="/admin"
+              className="hover:text-white/70"
+            >
+              Admin
+            </Link>
             <span className="text-white/35">{t.builtNote}</span>
           </div>
         </div>

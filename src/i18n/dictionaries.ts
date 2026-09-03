@@ -154,6 +154,19 @@ export interface Dict {
     email: string;
     whatsapp: string;
   };
+  faq: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    items: { q: string; a: string }[];
+  };
+  whatYouReceive: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    note: string;
+    deliverables: { title: string; text: string }[];
+  };
 }
 
 const en: Dict = {
@@ -440,6 +453,73 @@ const en: Dict = {
     phone: "Phone",
     email: "Email",
     whatsapp: "Chat on WhatsApp",
+  },
+  faq: {
+    eyebrow: "Frequently asked",
+    title: "Questions traders and insurers ask us",
+    lead: "Straight answers on method, turnaround, standards and what you actually receive.",
+    items: [
+      {
+        q: "What commodities do you inspect?",
+        a: "Grains and oilseeds, feedstuff, fertilisers, minerals and ores, coal and coke, vegetable oils in shore tanks and tankers, fruits and vegetables, coffee, cocoa and rice, and dangerous goods. If your commodity is not listed, ask — we likely cover it.",
+      },
+      {
+        q: "Which standards and methods do you use?",
+        a: "We apply GAFTA, FOSFA, ISO and ISTA sampling and analysis procedures, as well as IMDG for dangerous goods. The applicable standard is confirmed at the time of booking and stated on every certificate.",
+      },
+      {
+        q: "What is a draft survey, and why does it matter?",
+        a: "A draft survey is the accepted method for establishing the weight of a bulk cargo on board a vessel. Inspectors take precise draught readings fore, aft and amidships, calculate displacement from official hydrostatic tables, and deduct ballast and bunkers. Courts, arbitrators and cargo insurers accept it as the definitive weight figure.",
+      },
+      {
+        q: "How quickly can you attend?",
+        a: "We are based at the Port of Koper and can attend on short notice — typically within a few hours for vessels already berthed. For time-critical nominations, call us directly.",
+      },
+      {
+        q: "What documents do I receive after inspection?",
+        a: "A signed Certificate of Inspection with full photographic appendix, a weight certificate where applicable, sampling protocol with sample reference numbers, and a Statement of Facts. Documents are issued in English and accepted by GAFTA and FOSFA arbitration panels.",
+      },
+      {
+        q: "Do you cover urgent or after-hours inspections?",
+        a: "Yes. Vessel arrivals do not respect business hours. We operate on call for urgent nominations — contact us by phone or WhatsApp and we will confirm availability.",
+      },
+      {
+        q: "Can you inspect cargo outside Slovenia?",
+        a: "Our primary area is the Port of Koper and the surrounding Adriatic region. For inspections at other European ports, contact us — we can attend directly or arrange a trusted correspondent inspector.",
+      },
+      {
+        q: "Who do you typically work with?",
+        a: "Commodity trading houses, shipowners, freight forwarders, P&I clubs, cargo insurers and their surveyors, and direct producers and buyers. We are equally comfortable operating under a trading company's authority or under insurer's instructions.",
+      },
+    ],
+  },
+  whatYouReceive: {
+    eyebrow: "The deliverable",
+    title: "What you receive after every inspection",
+    lead: "Every engagement produces a clear, signed document package accepted by trading organisations, insurers and arbitration panels.",
+    note: "All documents issued in English. Standard turnaround: within 24 hours of inspection completion. Rush delivery on request.",
+    deliverables: [
+      {
+        title: "Certificate of Inspection",
+        text: "Signed primary document stating commodity, quantity, condition, method used and the applicable standard. Referenced by insurers and arbitration panels.",
+      },
+      {
+        title: "Weight Certificate",
+        text: "Issued separately for draft surveys and weighbridge operations. States the agreed weight figure with full working calculations attached.",
+      },
+      {
+        title: "Sampling Protocol",
+        text: "Documents where, when and how samples were drawn, with unique reference numbers so samples remain traceable if laboratory analysis is commissioned.",
+      },
+      {
+        title: "Photographic Appendix",
+        text: "Timestamped photographs of cargo condition, hatch openings, sampling points and any damage noted. Forms part of the certificate package.",
+      },
+      {
+        title: "Statement of Facts",
+        text: "A chronological log of the operation — times of arrival, commencement, completion and departure. Required by many trading contracts and P&I clubs.",
+      },
+    ],
   },
 };
 
@@ -728,6 +808,73 @@ const si: Dict = {
     phone: "Telefon",
     email: "E-pošta",
     whatsapp: "Klepet na WhatsAppu",
+  },
+  faq: {
+    eyebrow: "Pogosta vprašanja",
+    title: "Vprašanja trgovcev in zavarovalnic",
+    lead: "Jasni odgovori o metodah, rokih, standardih in tem, kaj dejansko prejmete.",
+    items: [
+      {
+        q: "Katero blago pregledujete?",
+        a: "Žita in oljnice, krmila, gnojila, minerale in rude, premog in koks, rastlinska olja v kopenskih cisternah in tankerjih, sadje in zelenjavo, kavo, kakav in riž ter nevarne snovi. Če vašega blaga ni na seznamu, vprašajte — verjetno ga pokrivamo.",
+      },
+      {
+        q: "Katere standarde in metode uporabljate?",
+        a: "Uporabljamo postopke vzorčenja in analize GAFTA, FOSFA, ISO in ISTA ter IMDG za nevarne snovi. Veljavni standard potrdimo ob naročilu in ga navedemo na vsakem potrdilu.",
+      },
+      {
+        q: "Kaj je ugotovitvena meritev (draft survey) in zakaj je pomembna?",
+        a: "Ugotovitvena meritev je sprejeta metoda za ugotavljanje mase razsutega tovora na ladji. Inšpektorji izmerijo ugrez ladje spredaj, zadaj in na sredini, izračunajo izpodriv iz uradnih hidrostatičnih tabel ter odštejejo balast in gorivo. Sodišča, arbitraži in zavarovalnice jo sprejemajo kot merodajno težo.",
+      },
+      {
+        q: "Kako hitro se lahko udeležite pregleda?",
+        a: "Imamo sedež v Kopru in se v pristanišče napotimo v kratkem obvestilu — navadno v nekaj urah za ladje, ki so že privezane. Za nujne napotitve nas pokličite neposredno.",
+      },
+      {
+        q: "Katere dokumente prejmem po pregledu?",
+        a: "Podpisano potrdilo o pregledu s celotnim fotografskim dodatkom, potrdilo o teži (kjer je primerno), protokol o vzorčenju z referenčnimi številkami vzorcev in izjavo o dejstvih. Dokumenti so izdani v angleščini in sprejeti pri arbitražnih odborih GAFTA in FOSFA.",
+      },
+      {
+        q: "Ali pokrivate nujne ali izvendelovne preglede?",
+        a: "Da. Prihodi ladij se ne ozirajo na delovni čas. Za nujne napotitve smo dosegljivi po telefonu ali WhatsApp — potrdimo razpoložljivost.",
+      },
+      {
+        q: "Ali pregledujete blago zunaj Slovenije?",
+        a: "Naše primarno področje je Luka Koper in okoliška jadranska regija. Za preglede v drugih evropskih pristaniščih nas kontaktirajte — se udeležimo ali uredimo zaupanja vrednega korespondentnega inšpektorja.",
+      },
+      {
+        q: "S kom navadno delate?",
+        a: "Z blagovnimi hišami, lastniki ladij, špediterji, klubi P&I, zavarovalnicami blaga in njihovimi nadzorniki ter neposrednimi proizvajalci in kupci. Enako dobro delamo po navodilih trgovske hiše ali po navodilih zavarovalnice.",
+      },
+    ],
+  },
+  whatYouReceive: {
+    eyebrow: "Kaj prejmete",
+    title: "Dokumenti, ki jih prejmete po vsakem pregledu",
+    lead: "Vsak pregled rezultira v jasnem paketu podpisanih dokumentov, ki jih sprejemajo trgovske organizacije, zavarovalnice in arbitražni odbori.",
+    note: "Vsi dokumenti v angleščini. Standardni rok: v 24 urah po zaključku pregleda. Nujna dostava na zahtevo.",
+    deliverables: [
+      {
+        title: "Potrdilo o pregledu",
+        text: "Podpisani primarni dokument z navedbo blaga, količine, stanja, uporabljene metode in veljavnega standarda. Ga referencirajo zavarovalnice in arbitražni odbori.",
+      },
+      {
+        title: "Potrdilo o teži",
+        text: "Izdano ločeno za ugotovitvene meritve in operacije na tehtnici. Navaja dogovorjeno težo s popolnimi izračuni v priponki.",
+      },
+      {
+        title: "Protokol o vzorčenju",
+        text: "Dokumentira kje, kdaj in kako so bili vzorci odvzeti, z edinstvenimi referenčnimi številkami za sledljivost vzorcev pri morebitni laboratorijski analizi.",
+      },
+      {
+        title: "Fotografski dodatek",
+        text: "Časovno označene fotografije stanja blaga, odprtin skladišč, točk vzorčenja in morebitnih poškodb. Je del paketa potrdila.",
+      },
+      {
+        title: "Izjava o dejstvih",
+        text: "Kronološki dnevnik operacije — časi prihoda, začetka, zaključka in odhoda. Zahtevajo ga mnoge trgovske pogodbe in klubi P&I.",
+      },
+    ],
   },
 };
 

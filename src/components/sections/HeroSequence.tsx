@@ -216,6 +216,7 @@ function PinnedHero({ locale, slides }: { locale: Locale; slides: Slide[] }) {
               fill
               priority={i === 0}
               sizes="100vw"
+              quality={90}
               className="object-cover"
             />
             {/* Layered scrims for worst-case legibility over the brightest
