@@ -24,8 +24,8 @@ const config: Config = {
         "line-dark": "rgba(255,255,255,0.12)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-space)", "system-ui", "sans-serif"],
+        sans: ["var(--font-figtree)", "system-ui", "sans-serif"],
+        display: ["var(--font-hanken)", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         eyebrow: "0.2em",

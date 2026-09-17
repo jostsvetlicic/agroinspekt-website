@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: "Inter", system-ui, sans-serif;
-  --font-space: "Space Grotesk", system-ui, sans-serif;
+  --font-figtree: "Figtree", system-ui, sans-serif;
+  --font-hanken: "Hanken Grotesk", system-ui, sans-serif;
 
   /* Motion — strong custom curves (the built-in CSS easings are too weak). */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -65,7 +65,8 @@
   }
 
   .display {
-    @apply font-display font-semibold tracking-tight text-ink;
+    @apply font-display font-bold text-ink;
+    letter-spacing: -0.028em;
   }
 
   .hairline {
@@ -139,8 +140,20 @@
 
   /* Large editorial statement scale - used sparingly for loud moments. */
   .statement {
-    @apply font-display font-semibold tracking-tight;
+    @apply font-display font-extrabold;
+    letter-spacing: -0.035em;
     line-height: 1.02;
+  }
+
+  /* Subtle document-paper grain for light sections. */
+  .light-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.028;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
 }
 

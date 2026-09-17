@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Figtree, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
 import StructuredData from "@/components/StructuredData";
 
@@ -11,15 +11,17 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-figtree",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const hankenGrotesk = Hanken_Grotesk({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-space",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-hanken",
   display: "swap",
 });
 
@@ -53,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${hankenGrotesk.variable}`}>
       <body>
         {children}
         <StructuredData />
