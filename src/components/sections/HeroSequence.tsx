@@ -233,7 +233,7 @@ function PinnedHero({ locale, slides }: { locale: Locale; slides: Slide[] }) {
                     : "translate-y-5 opacity-0"
                 }`}
               >
-                <h1 className="font-display text-5xl font-bold leading-[1.04] tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.55)] sm:text-6xl md:text-7xl">
+                <h1 className="font-display text-5xl font-extrabold leading-[1.02] text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.55)] sm:text-6xl md:text-7xl" style={{ letterSpacing: "-0.04em" }}>
                   {slide.headline}
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg font-medium leading-relaxed text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.5)] md:text-xl">
@@ -296,9 +296,10 @@ function StackedHero({ locale, slides }: { locale: Locale; slides: Slide[] }) {
               className={i === 0 ? "mt-6" : ""}
             >
               <h1
-                className={`font-display font-bold leading-[1.08] tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)] ${
-                  i === 0 ? "text-3xl sm:text-5xl" : "text-3xl sm:text-4xl"
+                className={`font-display font-extrabold text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.55)] ${
+                  i === 0 ? "text-3xl sm:text-5xl leading-[1.04]" : "text-3xl sm:text-4xl leading-[1.06]"
                 }`}
+                style={{ letterSpacing: "-0.036em" }}
               >
                 {slide.headline}
               </h1>
