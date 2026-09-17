@@ -55,7 +55,7 @@ function Figure({
   const current = useCountUp(value, active, animate);
   return (
     <div className="text-center">
-      <div className="font-display text-5xl font-semibold tabular tracking-tight text-white sm:text-6xl md:text-7xl">
+      <div className="font-display text-5xl font-extrabold tabular text-white sm:text-6xl md:text-7xl" style={{ letterSpacing: "-0.04em" }}>
         {current.toLocaleString("en-US")}
         <span className="text-green">{suffix}</span>
       </div>

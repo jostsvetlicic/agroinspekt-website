@@ -16,6 +16,7 @@ import Accreditations from "@/components/sections/Accreditations";
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
 import Coverage from "@/components/sections/Coverage";
 import WhatYouReceive from "@/components/sections/WhatYouReceive";
+import ClientsStrip from "@/components/sections/ClientsStrip";
 import Faq from "@/components/sections/Faq";
 import FinalCta from "@/components/sections/FinalCta";
 
@@ -73,6 +74,8 @@ export default async function Home({
       <HowItWorks locale={l} />
 
       <ProjectsPreview locale={l} />
+
+      <ClientsStrip locale={l} />
 
       <StatementBand
         media={media.capability}

@@ -3,43 +3,40 @@ import { getDict } from "@/i18n/dictionaries";
 import Reveal from "@/components/Reveal";
 import { MeasureRule, SectionIndex } from "@/components/Precision";
 import { Check } from "@/components/Icons";
+import CertificatePreview from "@/components/CertificatePreview";
 
 export default function WhatYouReceive({ locale }: { locale: Locale }) {
   const t = getDict(locale).whatYouReceive;
 
   return (
-    <section className="section bg-white">
+    <section className="section relative overflow-hidden bg-white">
       <div className="container-x">
-        <div className="grid gap-x-16 gap-y-10 lg:grid-cols-12">
-          {/* Heading column */}
-          <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <div className="flex items-center gap-4">
-                <span className="eyebrow">{t.eyebrow}</span>
-                <span className="ml-auto lg:hidden">
-                  <SectionIndex n={5} total={7} />
-                </span>
-              </div>
-              <h2 className="display mt-5 text-3xl leading-[1.12] sm:text-4xl">
-                {t.title}
-              </h2>
-              <p className="mt-5 max-w-sm text-base leading-relaxed text-grey">
-                {t.lead}
+        {/* Section header */}
+        <div className="mx-auto mb-16 max-w-2xl text-center md:mb-20">
+          <span className="eyebrow justify-center">{t.eyebrow}</span>
+          <h2 className="display mt-5 text-3xl leading-[1.1] sm:text-4xl">
+            {t.title}
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-grey">
+            {t.lead}
+          </p>
+        </div>
+
+        {/* Two-column: certificate preview + deliverables list */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+          {/* Certificate preview — pinned on desktop while list scrolls */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <CertificatePreview />
+            {/* Turnaround note below certificate */}
+            <div className="mx-auto mt-6 max-w-sm rounded-xl border border-green/25 bg-green/5 px-4 py-3">
+              <p className="text-center text-[13px] leading-relaxed text-green-deep">
+                {t.note}
               </p>
-              {/* Turnaround note */}
-              <div className="mt-8 rounded-xl border border-green/25 bg-green/5 px-4 py-4">
-                <p className="text-[13px] leading-relaxed text-green-deep">
-                  {t.note}
-                </p>
-              </div>
-              <div className="mt-6 hidden lg:block">
-                <SectionIndex n={5} total={7} />
-              </div>
             </div>
           </div>
 
           {/* Deliverables list */}
-          <div className="lg:col-span-7 lg:col-start-6">
+          <div>
             <MeasureRule />
             {t.deliverables.map((d, i) => (
               <Reveal key={d.title} delay={i}>
